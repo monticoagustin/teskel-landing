@@ -1,0 +1,99 @@
+name: Publicar la landing en teskel.online
+
+# En cada push a main, copia la landing a la raíz del repo del Space "teskel"
+# en Spacefast. Spacefast publica teskel solo.
+#
+# La raíz del Space es compartida: ahí también viven constructora/, n40/, 3df/,
+# teardown/, _redirects y otros archivos que no son de este repo. Por eso este
+# workflow copia SOLO la lista cerrada de LANDING_ARCHIVOS y nunca borra nada
+# fuera de ella. Los documentos internos (PRODUCT.md, DESIGN.md, CLAUDE.md,
+# README.md, .impeccable/) no se publican.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: publicar-en-teskel
+  cancel-in-progress: false
+
+env:
+  TESKEL_SPACE_ID: spc_02ae51f4db5a45b3a6c013388fe16504
+  # Archivos y carpetas de la landing que se publican. Una carpeta se copia
+  # entera (y se limpia adentro); lo que no exista en el repo se saltea.
+  LANDING_ARCHIVOS: "index.html assets favicon.ico favicon.svg robots.txt sitemap.xml"
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Traer el repo de la landing
+        uses: actions/checkout@v4
+        with:
+          path: landing-src
+
+      - name: Validar que la landing está completa
+        working-directory: landing-src
+        run: |
+          test -s index.html || { echo "::error::Falta index.html o está vacío."; exit 1; }
+          grep -qi '</html>' index.html || { echo "::error::index.html parece cortado (no cierra </html>)."; exit 1; }
+          echo "OK: index.html ($(wc -c < index.html) bytes)"
+
+      - name: Pedir un remoto de push temporal para teskel
+        env:
+          SPACEFAST_TOKEN: ${{ secrets.SPACEFAST_TOKEN }}
+        run: |
+          if [ -z "$SPACEFAST_TOKEN" ]; then
+            echo "::error::Falta el secreto SPACEFAST_TOKEN en Settings → Secrets and variables → Actions."; exit 1
+          fi
+          respuesta=$(curl -sS -w '\n%{http_code}' -X POST \
+            "https://api.spacefast.com/v1/spaces/${TESKEL_SPACE_ID}/source/push-remote" \
+            -H "Authorization: Bearer ${SPACEFAST_TOKEN}" \
+            -H "Content-Type: application/json" \
+            -d '{"ttlSeconds": 900}')
+          codigo=$(echo "$respuesta" | tail -n1)
+          cuerpo=$(echo "$respuesta" | sed '$d')
+          if [ "$codigo" -ge 300 ]; then
+            echo "::error::Spacefast respondió $codigo al pedir el remoto: $(echo "$cuerpo" | jq -r '.code // .title // .')"
+            exit 1
+          fi
+          url=$(echo "$cuerpo" | jq -r '[.. | objects | .pushUrl? // empty][0]')
+          if [ -z "$url" ] || [ "$url" = "null" ]; then
+            echo "::error::La respuesta de Spacefast no trae pushUrl."; exit 1
+          fi
+          echo "::add-mask::$url"
+          echo "TESKEL_REMOTE=$url" >> "$GITHUB_ENV"
+
+      - name: Clonar teskel
+        run: git clone --quiet --depth 1 --branch main "$TESKEL_REMOTE" teskel
+
+      - name: Copiar la landing a la raíz de teskel (solo la lista cerrada)
+        run: |
+          for p in $LANDING_ARCHIVOS; do
+            if [ -d "landing-src/$p" ]; then
+              mkdir -p "teskel/$p"
+              rsync -a --delete "landing-src/$p/" "teskel/$p/"
+              echo "Carpeta: $p/"
+            elif [ -f "landing-src/$p" ]; then
+              cp "landing-src/$p" "teskel/$p"
+              echo "Archivo: $p"
+            fi
+          done
+
+      - name: Commit y push a teskel
+        working-directory: teskel
+        env:
+          MENSAJE_ORIGEN: ${{ github.event.head_commit.message }}
+        run: |
+          for p in $LANDING_ARCHIVOS; do [ -e "$p" ] && git add -A -- "$p"; done
+          if git diff --cached --quiet; then
+            echo "La landing no cambió; no hay nada que publicar."; exit 0
+          fi
+          echo "Cambia:"; git diff --cached --stat
+          git -c user.name="Landing (GitHub Actions)" \
+              -c user.email="actions@users.noreply.github.com" \
+              commit -q -m "landing: sincronizar desde monticoagustin/teskel-landing@${GITHUB_SHA::7}" \
+                        -m "${MENSAJE_ORIGEN:-Ejecución manual}"
+          git push --quiet origin HEAD:main
+          echo "Publicado: https://teskel.online/"

@@ -4,7 +4,8 @@ Landing neumórfica actual de Teskel; sin pixel art.
 
 - Live: https://teskel.online/
 - Spacefast: space `spc_02ae51f4db5a45b3a6c013388fe16504`, slug `teskel`, team `monticoagustin-team`
-- Git managed: https://git.spacefast.com/teskel.git
+- Código: https://github.com/monticoagustin/teskel-landing (fuente de verdad)
+- Git del Space (destino del deploy): https://git.spacefast.com/teskel.git
 - Contacto: teskel.online@gmail.com · www.teskel.online · IG @teskel.online
 - Identidad: neumorfismo; logo oficial desde 2026-11-04 = round neumorphic (anillo elevado, hueco hundido, círculo slate al centro).
 
@@ -15,3 +16,11 @@ Landing neumórfica actual de Teskel; sin pixel art.
 
 ## Excluido
 `constructora/`, `n40/`, `3df/` (antes `demo/...`, el prefijo se eliminó el 2026-11-09), pixel art, drafts Instagram, Genus, WiWU, kits OneDrive, notas Gmail, research.
+
+## Cómo se publica
+Cada push a `main` en GitHub corre `.github/workflows/publicar-en-teskel.yml`, que copia la landing a la raíz del Space `teskel` y Spacefast la publica en vivo en teskel.online.
+
+- Se publica solo la lista cerrada `LANDING_ARCHIVOS` (hoy: `index.html`, y `assets/`, favicon, `robots.txt` y `sitemap.xml` si existen). Nada más de la raíz del Space se toca ni se borra (`constructora/`, `n40/`, `3df/`, `teardown/`, `_redirects`, videos).
+- Los documentos internos (`PRODUCT.md`, `DESIGN.md`, `CLAUDE.md`, `README.md`, `.impeccable/`) no se publican.
+- Requiere el secreto `SPACEFAST_TOKEN` en Settings → Secrets and variables → Actions (el mismo tipo de token que usa el repo Teardown).
+- Para publicar sin cambios de código: Actions → "Publicar la landing en teskel.online" → Run workflow.
