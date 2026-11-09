@@ -1,0 +1,637 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-09T08:58:50.404596+00:00",
+  "title": "Design System: teskel",
+  "extensions": {
+    "colorMeta": {
+      "masilla": {
+        "role": "neutral",
+        "displayName": "Masilla",
+        "canonical": "#ECE7E2",
+        "oklch": "oklch(93.0% 0.009 67.7)",
+        "tonalRamp": [
+          "#0C0B0A",
+          "#262421",
+          "#423F3C",
+          "#615D59",
+          "#817C78",
+          "#A19E9A",
+          "#C6C3C0",
+          "#F0EEEC"
+        ]
+      },
+      "masilla-sombra": {
+        "role": "neutral",
+        "displayName": "Sombra de masilla",
+        "canonical": "#CEC5BC",
+        "oklch": "oklch(82.8% 0.016 67.6)",
+        "tonalRamp": [
+          "#0D0B08",
+          "#27231F",
+          "#443F39",
+          "#635C55",
+          "#847C74",
+          "#A49D96",
+          "#C8C3BE",
+          "#F2EEEA"
+        ]
+      },
+      "masilla-sombra-boton": {
+        "role": "neutral",
+        "displayName": "Sombra de botón",
+        "canonical": "#C3B9AF",
+        "oklch": "oklch(79.1% 0.018 67.6)",
+        "tonalRamp": [
+          "#0D0B08",
+          "#28231F",
+          "#453F38",
+          "#645C54",
+          "#847C73",
+          "#A59D95",
+          "#C9C3BD",
+          "#F2EEE9"
+        ]
+      },
+      "masilla-hundido": {
+        "role": "neutral",
+        "displayName": "Hundido",
+        "canonical": "#CBC1B7",
+        "oklch": "oklch(81.6% 0.018 67.6)",
+        "tonalRamp": [
+          "#0D0B08",
+          "#27231F",
+          "#453F38",
+          "#645C54",
+          "#847C73",
+          "#A49D95",
+          "#C9C3BD",
+          "#F2EEE9"
+        ]
+      },
+      "luz": {
+        "role": "neutral",
+        "displayName": "Luz",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#242424",
+          "#404040",
+          "#5D5D5D",
+          "#7D7D7D",
+          "#9E9E9E",
+          "#C4C4C4",
+          "#EEEEEE"
+        ]
+      },
+      "tinta": {
+        "role": "neutral",
+        "displayName": "Tinta",
+        "canonical": "#3B342F",
+        "oklch": "oklch(33.1% 0.013 57.8)",
+        "tonalRamp": [
+          "#0D0B09",
+          "#272320",
+          "#443F3B",
+          "#635C57",
+          "#837C76",
+          "#A49D98",
+          "#C8C3BF",
+          "#F1EEEB"
+        ]
+      },
+      "tinta-suave": {
+        "role": "neutral",
+        "displayName": "Tinta suave",
+        "canonical": "#655A52",
+        "oklch": "oklch(47.6% 0.019 58.3)",
+        "tonalRamp": [
+          "#0E0A08",
+          "#28231F",
+          "#463E39",
+          "#655B54",
+          "#867B73",
+          "#A69C95",
+          "#CAC2BD",
+          "#F3EDE9"
+        ]
+      },
+      "brasa": {
+        "role": "primary",
+        "displayName": "Brasa",
+        "canonical": "#F26B4E",
+        "oklch": "oklch(68.8% 0.173 33.7)",
+        "tonalRamp": [
+          "#220000",
+          "#490600",
+          "#741A06",
+          "#A33017",
+          "#CB5036",
+          "#E57C65",
+          "#FFAB97",
+          "#FFDECF"
+        ]
+      },
+      "brasa-tinta": {
+        "role": "primary",
+        "displayName": "Brasa tinta",
+        "canonical": "#AD3F27",
+        "oklch": "oklch(51.8% 0.149 33.9)",
+        "tonalRamp": [
+          "#1F0000",
+          "#450E03",
+          "#6E2313",
+          "#9A3A25",
+          "#C25942",
+          "#DD826D",
+          "#F9AF9E",
+          "#FFE0D3"
+        ]
+      },
+      "terracota": {
+        "role": "primary",
+        "displayName": "Terracota",
+        "canonical": "#B8432A",
+        "oklch": "oklch(54.1% 0.157 33.7)",
+        "tonalRamp": [
+          "#200000",
+          "#460B02",
+          "#70210F",
+          "#9D3721",
+          "#C5563E",
+          "#E0816B",
+          "#FBAE9C",
+          "#FFE0D2"
+        ]
+      },
+      "terracota-profunda": {
+        "role": "primary",
+        "displayName": "Terracota profunda",
+        "canonical": "#AE3D25",
+        "oklch": "oklch(51.7% 0.152 33.7)",
+        "tonalRamp": [
+          "#1F0000",
+          "#450D03",
+          "#6F2211",
+          "#9C3823",
+          "#C35840",
+          "#DE816C",
+          "#FAAF9D",
+          "#FFE0D3"
+        ]
+      },
+      "pizarra": {
+        "role": "secondary",
+        "displayName": "Pizarra",
+        "canonical": "#4A5163",
+        "oklch": "oklch(43.6% 0.031 268.4)",
+        "tonalRamp": [
+          "#090B11",
+          "#20242D",
+          "#3A3F4C",
+          "#575D6E",
+          "#767D8F",
+          "#989EAE",
+          "#BFC4D1",
+          "#EBEEF8"
+        ]
+      },
+      "noche-de-rio": {
+        "role": "neutral",
+        "displayName": "Noche de río",
+        "canonical": "#1E3440",
+        "oklch": "oklch(31.2% 0.035 233.4)",
+        "tonalRamp": [
+          "#060C10",
+          "#1A262C",
+          "#32424B",
+          "#4C616D",
+          "#6A818E",
+          "#8EA2AD",
+          "#B7C7D0",
+          "#E5F0F7"
+        ]
+      },
+      "noche-sombra": {
+        "role": "neutral",
+        "displayName": "Sombra de noche",
+        "canonical": "#14232B",
+        "oklch": "oklch(24.6% 0.025 232.5)",
+        "tonalRamp": [
+          "#070C0F",
+          "#1D252A",
+          "#364248",
+          "#516069",
+          "#708089",
+          "#93A1A9",
+          "#BBC6CD",
+          "#E8F0F5"
+        ]
+      },
+      "noche-luz": {
+        "role": "neutral",
+        "displayName": "Luz de noche",
+        "canonical": "#2A4655",
+        "oklch": "oklch(37.9% 0.042 232.9)",
+        "tonalRamp": [
+          "#040C11",
+          "#18262E",
+          "#2F434E",
+          "#486270",
+          "#668291",
+          "#8BA2B0",
+          "#B4C7D2",
+          "#E3F1F9"
+        ]
+      },
+      "noche-tinta": {
+        "role": "neutral",
+        "displayName": "Tinta de noche",
+        "canonical": "#E6EEF2",
+        "oklch": "oklch(94.4% 0.010 228.9)",
+        "tonalRamp": [
+          "#090C0D",
+          "#212526",
+          "#3C4143",
+          "#595F62",
+          "#787E82",
+          "#9A9FA2",
+          "#C0C5C7",
+          "#ECEFF1"
+        ]
+      },
+      "noche-tinta-suave": {
+        "role": "neutral",
+        "displayName": "Tinta suave de noche",
+        "canonical": "#A9BCC6",
+        "oklch": "oklch(78.4% 0.025 230.5)",
+        "tonalRamp": [
+          "#070C0F",
+          "#1D252A",
+          "#364248",
+          "#516068",
+          "#6F8089",
+          "#93A1A9",
+          "#BBC6CC",
+          "#E8F0F4"
+        ]
+      },
+      "brasa-noche": {
+        "role": "primary",
+        "displayName": "Brasa noche",
+        "canonical": "#F7845F",
+        "oklch": "oklch(73.4% 0.150 38.5)",
+        "tonalRamp": [
+          "#1F0000",
+          "#440F00",
+          "#6E2409",
+          "#9A3B1A",
+          "#C15A38",
+          "#DC8367",
+          "#F8B099",
+          "#FFE1D0"
+        ]
+      },
+      "sobre-brasa-noche": {
+        "role": "neutral",
+        "displayName": "Sobre brasa noche",
+        "canonical": "#2A1712",
+        "oklch": "oklch(22.9% 0.033 35.5)",
+        "tonalRamp": [
+          "#100907",
+          "#2C211E",
+          "#4C3B37",
+          "#6D5852",
+          "#8E7771",
+          "#AE9994",
+          "#D0C0BB",
+          "#F7EBE8"
+        ]
+      },
+      "terracota-clara": {
+        "role": "primary",
+        "displayName": "Terracota clara",
+        "canonical": "#C94A2F"
+      },
+      "brasa-suave-clara": {
+        "role": "primary",
+        "displayName": "Brasa suave clara",
+        "canonical": "#F7896F"
+      },
+      "brasa-suave-oscura": {
+        "role": "primary",
+        "displayName": "Brasa suave oscura",
+        "canonical": "#E8573A"
+      },
+      "pizarra-clara": {
+        "role": "secondary",
+        "displayName": "Pizarra clara",
+        "canonical": "#5F6779"
+      },
+      "pizarra-oscura": {
+        "role": "secondary",
+        "displayName": "Pizarra oscura",
+        "canonical": "#3D4353"
+      },
+      "pizarra-noche": {
+        "role": "secondary",
+        "displayName": "Pizarra noche",
+        "canonical": "#8A92A6"
+      },
+      "brasa-noche-clara": {
+        "role": "primary",
+        "displayName": "Brasa noche clara",
+        "canonical": "#FF9A7E"
+      },
+      "brasa-noche-oscura": {
+        "role": "primary",
+        "displayName": "Brasa noche oscura",
+        "canonical": "#F57A59"
+      },
+      "brasa-noche-profunda": {
+        "role": "primary",
+        "displayName": "Brasa noche profunda",
+        "canonical": "#F06E4F"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Solo el H1 del hero, con relieve por palabra."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "H2 de sección, con relieve por letra."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "H3 de tarjetas, pasos y valores (20–24px)."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Bajadas de sección en tinta suave."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Texto corrido."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Eyebrows, chips, metadatos."
+      },
+      "tag": {
+        "displayName": "Tag",
+        "purpose": "Estados dentro de la consola."
+      },
+      "display-xl": {
+        "displayName": "display-xl",
+        "purpose": "H1 del hero desde 1440px."
+      },
+      "display-xxl": {
+        "displayName": "display-xxl",
+        "purpose": "H1 del hero desde 1920px."
+      },
+      "wordmark": {
+        "displayName": "wordmark",
+        "purpose": "Wordmark \"teskel\" en nav."
+      },
+      "title-sm": {
+        "displayName": "title-sm",
+        "purpose": "H3 de valores."
+      },
+      "number": {
+        "displayName": "number",
+        "purpose": "Pozos numéricos de tarjetas."
+      },
+      "body-sm": {
+        "displayName": "body-sm",
+        "purpose": "Texto dentro de tarjetas y botones."
+      },
+      "caption": {
+        "displayName": "caption",
+        "purpose": "Metadatos y subtítulos."
+      }
+    },
+    "shadows": [
+      {
+        "name": "elevado-grande",
+        "value": "10px 10px 20px #CEC5BC, -10px -10px 20px #FFFFFF",
+        "purpose": "Secciones, tarjetas, consola, contacto."
+      },
+      {
+        "name": "elevado-control",
+        "value": "6px 6px 12px #C3B9AF, -6px -6px 12px #FFFFFF",
+        "purpose": "Botones y links de contacto en reposo."
+      },
+      {
+        "name": "elevado-hover",
+        "value": "3px 3px 7px #C3B9AF, -3px -3px 7px #FFFFFF",
+        "purpose": "Control en hover: baja a la mitad."
+      },
+      {
+        "name": "elevado-minimo",
+        "value": "3px 3px 6px #CEC5BC, -3px -3px 6px #FFFFFF",
+        "purpose": "Tags, badges, íconos de veredicto."
+      },
+      {
+        "name": "hundido",
+        "value": "inset 6px 6px 12px #CBC1B7, inset -6px -6px 12px #FFFFFF",
+        "purpose": "Pantallas, pozos, rieles."
+      },
+      {
+        "name": "hundido-chico",
+        "value": "inset 3px 3px 6px #CBC1B7, inset -3px -3px 6px #FFFFFF",
+        "purpose": "Chips, inputs, íconos, riel del switch."
+      },
+      {
+        "name": "presionado",
+        "value": "inset 4px 4px 8px #CBC1B7, inset -4px -4px 8px #FFFFFF",
+        "purpose": "Estado :active de controles; menú abierto."
+      },
+      {
+        "name": "brillo-cursor",
+        "value": "radial-gradient(260px circle at var(--mx) var(--my), rgba(255,255,255,.6), transparent 70%)",
+        "purpose": "Luz que sigue al cursor en superficies .glow (desktop)."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.2,.7,.2,1)",
+        "purpose": "Easing único para sombras, flechas, diales y perilla."
+      },
+      {
+        "name": "sombra",
+        "value": "0.3s",
+        "purpose": "Cambio de elevación en hover/active."
+      },
+      {
+        "name": "tema",
+        "value": "0.35s",
+        "purpose": "Transición de color de fondo al cambiar día/noche."
+      },
+      {
+        "name": "perilla",
+        "value": "0.45s",
+        "purpose": "Desplazamiento de la perilla del switch."
+      },
+      {
+        "name": "blink",
+        "value": "2.4s ease-in-out infinite",
+        "purpose": "LED 'activo'; el cursor usa 1s steps(1)."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "none",
+        "purpose": "Con prefers-reduced-motion se anulan animaciones y transiciones."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "xs",
+        "value": "420px"
+      },
+      {
+        "name": "sm",
+        "value": "600px"
+      },
+      {
+        "name": "md",
+        "value": "860px"
+      },
+      {
+        "name": "lg",
+        "value": "1100px"
+      },
+      {
+        "name": "xl",
+        "value": "1440px"
+      },
+      {
+        "name": "xxl",
+        "value": "1920px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botón primario",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "La única acción principal de un bloque: degradé terracota, se hunde al click.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">Probá 2 semanas <span class=\"ds-arrow\"><svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></span></button>",
+      "css": ":host{--bg:#ECE7E2;--shadow-dark:#CEC5BC;--shadow-light:#FFFFFF;--shadow-btn:#C3B9AF;--inset-dark:#CBC1B7;--ink:#3B342F;--ink-soft:#655A52;--hot:#F26B4E;--hot-ink:#AD3F27;--accent:linear-gradient(145deg,#C94A2F,#AE3D25);--on-accent:#FFFFFF;--ease:cubic-bezier(.2,.7,.2,1);--font:'General Sans',system-ui,sans-serif} .ds-btn{font-family:var(--font,'General Sans',system-ui,sans-serif);display:inline-flex;align-items:center;gap:10px;height:56px;padding:0 28px;border:0;border-radius:999px;font-size:16px;font-weight:700;cursor:pointer;background:var(--accent);color:var(--on-accent);box-shadow:6px 6px 12px var(--shadow-btn),-6px -6px 12px var(--shadow-light);transition:box-shadow .3s var(--ease)} .ds-btn-primary:hover{box-shadow:3px 3px 7px var(--shadow-btn),-3px -3px 7px var(--shadow-light)} .ds-btn-primary:active{box-shadow:inset 4px 4px 8px rgba(0,0,0,.35),inset -2px -2px 6px rgba(255,255,255,.12)} .ds-btn:focus-visible{outline:2px solid var(--ink);outline-offset:4px} .ds-arrow{display:grid;place-items:center;width:32px;height:32px;margin-right:-14px;border-radius:50%;box-shadow:inset 3px 3px 6px rgba(0,0,0,.28),inset -2px -2px 5px rgba(255,255,255,.14);transition:transform .3s var(--ease)} .ds-btn:hover .ds-arrow{transform:translateX(3px)}"
+    },
+    {
+      "name": "Botón neutro",
+      "kind": "button",
+      "refersTo": "button-neutral",
+      "description": "Acciones secundarias y links de nav: masilla elevada.",
+      "html": "<button class=\"ds-btn-neutral\">Ver el paquete</button>",
+      "css": ":host{--bg:#ECE7E2;--shadow-dark:#CEC5BC;--shadow-light:#FFFFFF;--shadow-btn:#C3B9AF;--inset-dark:#CBC1B7;--ink:#3B342F;--ink-soft:#655A52;--hot:#F26B4E;--hot-ink:#AD3F27;--accent:linear-gradient(145deg,#C94A2F,#AE3D25);--on-accent:#FFFFFF;--ease:cubic-bezier(.2,.7,.2,1);--font:'General Sans',system-ui,sans-serif} .ds-btn-neutral{font-family:var(--font,'General Sans',system-ui,sans-serif);height:44px;padding:0 22px;border:0;border-radius:999px;font-size:15px;font-weight:500;cursor:pointer;background:var(--bg);color:var(--ink);box-shadow:6px 6px 12px var(--shadow-btn),-6px -6px 12px var(--shadow-light);transition:box-shadow .3s var(--ease)} .ds-btn-neutral:hover{box-shadow:3px 3px 7px var(--shadow-btn),-3px -3px 7px var(--shadow-light)} .ds-btn-neutral:active{box-shadow:inset 4px 4px 8px var(--inset-dark),inset -4px -4px 8px var(--shadow-light)} .ds-btn-neutral:focus-visible{outline:2px solid var(--ink);outline-offset:4px}"
+    },
+    {
+      "name": "Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Píldora hundida con punto brasa; resume canales, no es interactiva.",
+      "html": "<span class=\"ds-chip\">Instagram</span>",
+      "css": ":host{--bg:#ECE7E2;--shadow-dark:#CEC5BC;--shadow-light:#FFFFFF;--shadow-btn:#C3B9AF;--inset-dark:#CBC1B7;--ink:#3B342F;--ink-soft:#655A52;--hot:#F26B4E;--hot-ink:#AD3F27;--accent:linear-gradient(145deg,#C94A2F,#AE3D25);--on-accent:#FFFFFF;--ease:cubic-bezier(.2,.7,.2,1);--font:'General Sans',system-ui,sans-serif} .ds-chip{font-family:var(--font,'General Sans',system-ui,sans-serif);display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:999px;font-size:14px;color:var(--ink);background:var(--bg);box-shadow:inset 3px 3px 6px var(--inset-dark),inset -3px -3px 6px var(--shadow-light)} .ds-chip::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--hot)}"
+    },
+    {
+      "name": "Tags de estado",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Estados dentro de la consola: neutro elevado y 'Listo' en terracota.",
+      "html": "<span class=\"ds-tag\">Pendiente</span> <span class=\"ds-tag ds-tag-ok\">Listo</span>",
+      "css": ":host{--bg:#ECE7E2;--shadow-dark:#CEC5BC;--shadow-light:#FFFFFF;--shadow-btn:#C3B9AF;--inset-dark:#CBC1B7;--ink:#3B342F;--ink-soft:#655A52;--hot:#F26B4E;--hot-ink:#AD3F27;--accent:linear-gradient(145deg,#C94A2F,#AE3D25);--on-accent:#FFFFFF;--ease:cubic-bezier(.2,.7,.2,1);--font:'General Sans',system-ui,sans-serif} .ds-tag{font-family:var(--font,'General Sans',system-ui,sans-serif);display:inline-block;font-size:12px;font-weight:700;letter-spacing:.02em;padding:3px 10px;border-radius:999px;color:var(--ink);background:var(--bg);box-shadow:3px 3px 6px var(--shadow-dark),-3px -3px 6px var(--shadow-light)} .ds-tag-ok{background:#AE3D25;color:#FFFFFF}"
+    },
+    {
+      "name": "Tarjeta",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Superficie elevada de la misma masilla, con pozo numérico hundido y bullets brasa.",
+      "html": "<article class=\"ds-card\"><span class=\"ds-n\">1</span><h3>Inbox en orden</h3><p>Tu email, ordenado todos los días.</p><ul><li>Borradores listos para revisar</li><li>Resumen diario</li></ul></article>",
+      "css": ":host{--bg:#ECE7E2;--shadow-dark:#CEC5BC;--shadow-light:#FFFFFF;--shadow-btn:#C3B9AF;--inset-dark:#CBC1B7;--ink:#3B342F;--ink-soft:#655A52;--hot:#F26B4E;--hot-ink:#AD3F27;--accent:linear-gradient(145deg,#C94A2F,#AE3D25);--on-accent:#FFFFFF;--ease:cubic-bezier(.2,.7,.2,1);--font:'General Sans',system-ui,sans-serif} .ds-card{font-family:var(--font,'General Sans',system-ui,sans-serif);max-width:320px;padding:32px;border-radius:40px;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;gap:14px;box-shadow:10px 10px 20px var(--shadow-dark),-10px -10px 20px var(--shadow-light);transition:box-shadow .3s var(--ease)} .ds-card:hover{box-shadow:6px 6px 14px var(--shadow-dark),-6px -6px 14px var(--shadow-light)} .ds-card h3{margin:8px 0 0;font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1.25} .ds-card p{margin:0;color:var(--ink-soft)} .ds-card ul{margin:0;padding:18px 0 0;list-style:none;display:grid;gap:12px;font-size:15px;border-top:2px solid transparent;border-image:linear-gradient(90deg,var(--shadow-dark),transparent) 1} .ds-card li{display:flex;gap:12px} .ds-card li::before{content:'';flex:none;width:8px;height:8px;margin-top:7px;border-radius:50%;background:var(--hot)} .ds-n{display:grid;place-items:center;width:56px;height:56px;border-radius:18px;font-weight:700;font-size:22px;box-shadow:inset 4px 4px 8px var(--inset-dark),inset -4px -4px 8px var(--shadow-light)}"
+    },
+    {
+      "name": "Campo de texto",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Píldora hundida sin borde; foco con contorno tinta.",
+      "html": "<input class=\"ds-input\" placeholder=\"Buscá tu ciudad\">",
+      "css": ":host{--bg:#ECE7E2;--shadow-dark:#CEC5BC;--shadow-light:#FFFFFF;--shadow-btn:#C3B9AF;--inset-dark:#CBC1B7;--ink:#3B342F;--ink-soft:#655A52;--hot:#F26B4E;--hot-ink:#AD3F27;--accent:linear-gradient(145deg,#C94A2F,#AE3D25);--on-accent:#FFFFFF;--ease:cubic-bezier(.2,.7,.2,1);--font:'General Sans',system-ui,sans-serif} .ds-input{font-family:var(--font,'General Sans',system-ui,sans-serif);width:260px;height:44px;padding:0 18px;border:0;border-radius:999px;font-size:15px;font-weight:500;color:var(--ink);background:var(--bg);box-shadow:inset 3px 3px 6px var(--inset-dark),inset -3px -3px 6px var(--shadow-light);-webkit-appearance:none;appearance:none} .ds-input::placeholder{color:var(--ink-soft);opacity:1} .ds-input:focus-visible{outline:2px solid var(--ink);outline-offset:3px}"
+    },
+    {
+      "name": "Tabs en riel",
+      "kind": "nav",
+      "refersTo": "tab-selected",
+      "description": "Riel hundido; la tab activa se eleva con texto brasa tinta.",
+      "html": "<div class=\"ds-rail\" role=\"tablist\"><button role=\"tab\" aria-selected=\"true\">Inbox en orden</button><button role=\"tab\" aria-selected=\"false\">Redes al día</button><button role=\"tab\" aria-selected=\"false\">Reporte</button></div>",
+      "css": ":host{--bg:#ECE7E2;--shadow-dark:#CEC5BC;--shadow-light:#FFFFFF;--shadow-btn:#C3B9AF;--inset-dark:#CBC1B7;--ink:#3B342F;--ink-soft:#655A52;--hot:#F26B4E;--hot-ink:#AD3F27;--accent:linear-gradient(145deg,#C94A2F,#AE3D25);--on-accent:#FFFFFF;--ease:cubic-bezier(.2,.7,.2,1);--font:'General Sans',system-ui,sans-serif} .ds-rail{display:inline-flex;gap:6px;padding:6px;border-radius:999px;background:var(--bg);box-shadow:inset 3px 3px 6px var(--inset-dark),inset -3px -3px 6px var(--shadow-light)} .ds-rail button{font-family:var(--font,'General Sans',system-ui,sans-serif);height:44px;padding:0 18px;border:0;border-radius:999px;background:transparent;color:var(--ink-soft);font-size:15px;font-weight:500;cursor:pointer;transition:box-shadow .25s var(--ease),color .2s} .ds-rail button:hover{color:var(--ink)} .ds-rail button[aria-selected=true]{background:var(--bg);color:var(--hot-ink);font-weight:700;box-shadow:4px 4px 8px var(--shadow-btn),-4px -4px 8px var(--shadow-light)} .ds-rail button:focus-visible{outline:2px solid var(--ink);outline-offset:4px}"
+    },
+    {
+      "name": "Logo round neumorphic",
+      "kind": "custom",
+      "refersTo": "logo",
+      "description": "Anillo elevado, hueco hundido, círculo pizarra; sombras proporcionales a --s.",
+      "html": "<span class=\"ds-logo\"><span class=\"ds-well\"></span><span class=\"ds-dot\"></span></span>",
+      "css": ":host{--bg:#ECE7E2;--shadow-dark:#CEC5BC;--shadow-light:#FFFFFF;--shadow-btn:#C3B9AF;--inset-dark:#CBC1B7;--ink:#3B342F;--ink-soft:#655A52;--hot:#F26B4E;--hot-ink:#AD3F27;--accent:linear-gradient(145deg,#C94A2F,#AE3D25);--on-accent:#FFFFFF;--ease:cubic-bezier(.2,.7,.2,1);--font:'General Sans',system-ui,sans-serif} .ds-logo{--s:96px;position:relative;display:inline-block;width:var(--s);height:var(--s);border-radius:50%;background:var(--bg);box-shadow:calc(var(--s)*.08) calc(var(--s)*.08) calc(var(--s)*.16) var(--shadow-dark),calc(var(--s)*-.08) calc(var(--s)*-.08) calc(var(--s)*.16) var(--shadow-light)} .ds-well{position:absolute;inset:0;margin:auto;width:68.6%;height:68.6%;border-radius:50%;background:var(--bg);box-shadow:inset calc(var(--s)*.04) calc(var(--s)*.04) calc(var(--s)*.08) var(--inset-dark),inset calc(var(--s)*-.04) calc(var(--s)*-.04) calc(var(--s)*.08) var(--shadow-light)} .ds-dot{position:absolute;width:37%;height:37%;left:36.8%;top:26.2%;border-radius:50%;background:linear-gradient(145deg,#5f6779,#3d4353);box-shadow:calc(var(--s)*.035) calc(var(--s)*.04) calc(var(--s)*.07) var(--shadow-dark)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Arcilla Cálida",
+    "overview": "Todo en teskel está modelado en una sola pasta. No hay tarjetas apoyadas sobre un fondo: el fondo *es* el material, y cada pieza sale de él (elevada) o se hunde en él (presionada). La profundidad no viene de capas ni de bordes, sino de luz arriba a la izquierda y sombra abajo a la derecha sobre la misma superficie. El resultado es un tablero blando y táctil donde el visitante entiende, sin leer, qué se aprieta y qué es una pantalla.\n\nLa paleta es casi monocroma: masilla cálida de día, noche de río de noche, con una sola nota fuerte, la brasa coral, que marca vida (puntos, arcos, la aguja del reloj, el cursor que titila) y la acción principal. La tipografía es una sola familia, General Sans, pesada en titulares y media en el cuerpo, con titulares que también llevan relieve. La densidad es generosa: mucho aire, radios grandes, pocas piezas por fila.\n\nLos componentes se sienten **táctiles y tranquilos**: responden al hover bajando su elevación y al click hundiéndose, pero nunca gritan. El logo oficial (round neumorphic: anillo elevado, hueco hundido, círculo pizarra al centro) es la síntesis del sistema y aparece en nav, valores, contacto y footer. Sin pixel art.",
+    "keyCharacteristics": [
+      "Una sola superficie: fondo y piezas comparten color; la forma la da la sombra doble (luz + oscura).",
+      "Dos estados de materia: elevado (afuera) y hundido (adentro). Nada es plano por accidente.",
+      "Una sola nota de color: brasa/terracota para vida y acción; el resto es tinta sobre masilla.",
+      "Radios enormes y píldoras; ninguna esquina viva.",
+      "Tema claro (masilla) y oscuro (noche de río) con la misma lógica de luz."
+    ],
+    "rules": [
+      {
+        "name": "La Regla de la Brasa Única",
+        "body": "El coral es el único color fuera de la escala de masilla/tinta. Se usa en puntos chicos y en la acción principal; si una pantalla tiene más de un bloque grande en brasa, sobra uno.",
+        "section": "colors"
+      },
+      {
+        "name": "La Regla de la Brasa Muda",
+        "body": "#F26B4E nunca es texto. Texto naranja = brasa tinta (#AD3F27) de día y #FF9A7E de noche.",
+        "section": "colors"
+      },
+      {
+        "name": "La Regla del Relieve Tipográfico",
+        "body": "Solo los titulares (H1 y H2) llevan relieve. El cuerpo es tinta plana; un párrafo con text-shadow se vuelve ilegible.",
+        "section": "typography"
+      },
+      {
+        "name": "La Regla de los Dos Estados",
+        "body": "Toda pieza está afuera (elevada) o adentro (hundida). Lo que se aprieta se eleva; lo que muestra información se hunde.",
+        "section": "elevation"
+      },
+      {
+        "name": "La Regla del Click que Hunde",
+        "body": "Hover reduce la elevación a la mitad; active la invierte a hundida. Nunca un cambio de color como único feedback de un control neutro.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** construir cada pieza sobre masilla (#ECE7E2) con la pareja de sombras luz/oscura; elegir elevado o hundido antes que cualquier otra cosa.",
+      "**Do** usar brasa (#F26B4E) solo en puntos, arcos y señales de vida, y terracota para la única acción principal de cada bloque.",
+      "**Do** usar brasa tinta (#AD3F27) cuando el naranja tiene que ser texto.",
+      "**Do** mantener todos los controles en píldora y las superficies grandes en 28–48px de radio.",
+      "**Do** definir cada color nuevo en los dos temas (masilla y noche de río) dentro de `:root`, `prefers-color-scheme` y `[data-theme=\"dark\"]`.",
+      "**Do** respetar `prefers-reduced-motion`: sin animaciones ni transiciones, relieve tipográfico completo.",
+      "**Do** pausar cualquier animación continua (como la aguja del reloj) cuando sale de pantalla o la pestaña se oculta."
+    ],
+    "donts": [
+      "**Don't** usar pixel art ni la versión vieja del logo; el logo es el round neumorphic.",
+      "**Don't** separar superficies con bordes o fondos de otro color; la separación es la sombra.",
+      "**Don't** poner brasa #F26B4E como color de texto, ni sumar un segundo color de acento.",
+      "**Don't** usar esquinas vivas ni radios chicos (menos de 9px) en ninguna pieza.",
+      "**Don't** poner text-shadow de relieve en párrafos o texto de menos de 32px.",
+      "**Don't** usar la pizarra del logo en la interfaz."
+    ]
+  }
+}

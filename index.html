@@ -17,22 +17,23 @@
   --ink:#3B342F;--ink-soft:#655A52;
   --accent:linear-gradient(145deg,#C94A2F,#AE3D25);--accent-flat:#B8432A;--on-accent:#FFFFFF;
   --hot:#F26B4E;--hot-ink:#AD3F27;--hot-soft:linear-gradient(145deg,#F7896F,#E8573A);--logo-dot:linear-gradient(145deg,#5f6779,#3d4353);
-  --glow:rgba(255,255,255,.6);--fill:#F26B4E;
+  --glow:rgba(255,255,255,.6);--fill:#F26B4E;--ok-bg:#AE3D25;
   --font:"General Sans",system-ui,sans-serif;--nav-h:72px;--ease:cubic-bezier(.2,.7,.2,1);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   color-scheme:dark;--bg:#1E3440;--shadow-dark:#14232B;--shadow-light:#2A4655;--shadow-btn:#111E25;--inset-dark:#14232B;
   --ink:#E6EEF2;--ink-soft:#A9BCC6;--accent:linear-gradient(145deg,#FF9A7E,#F57A59);--accent-flat:#F7845F;--on-accent:#2A1712;
-  --hot:#F7845F;--hot-ink:#FF9A7E;--hot-soft:linear-gradient(145deg,#FF9A7E,#F06E4F);--logo-dot:linear-gradient(145deg,#8a92a6,#5f6779);--glow:rgba(225,240,250,.06);--fill:#F7845F}}
+  --hot:#F7845F;--hot-ink:#FF9A7E;--hot-soft:linear-gradient(145deg,#FF9A7E,#F06E4F);--logo-dot:linear-gradient(145deg,#8a92a6,#5f6779);--glow:rgba(225,240,250,.06);--fill:#F7845F;--ok-bg:var(--accent)}}
 :root[data-theme="dark"]{
   color-scheme:dark;--bg:#1E3440;--shadow-dark:#14232B;--shadow-light:#2A4655;--shadow-btn:#111E25;--inset-dark:#14232B;
   --ink:#E6EEF2;--ink-soft:#A9BCC6;--accent:linear-gradient(145deg,#FF9A7E,#F57A59);--accent-flat:#F7845F;--on-accent:#2A1712;
-  --hot:#F7845F;--hot-ink:#FF9A7E;--hot-soft:linear-gradient(145deg,#FF9A7E,#F06E4F);--logo-dot:linear-gradient(145deg,#8a92a6,#5f6779);--glow:rgba(225,240,250,.06);--fill:#F7845F}
+  --hot:#F7845F;--hot-ink:#FF9A7E;--hot-soft:linear-gradient(145deg,#FF9A7E,#F06E4F);--logo-dot:linear-gradient(145deg,#8a92a6,#5f6779);--glow:rgba(225,240,250,.06);--fill:#F7845F;--ok-bg:var(--accent)}
 
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-padding-top:calc(var(--nav-h) + 32px)}
 body{margin:0;background:var(--bg);color:var(--ink);font:500 16px/1.6 var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background-color .35s,color .35s}
-h1,h2,h3{font-weight:700;letter-spacing:-.02em;line-height:1.08;margin:0}
+h1,h2,h3{font-weight:700;letter-spacing:-.02em;line-height:1.08;margin:0;text-wrap:balance}
+::selection{background:var(--hot);color:var(--on-accent)}
 p{margin:0}a{color:inherit}ul,ol{margin:0;padding:0;list-style:none}
 :focus-visible{outline:2px solid var(--ink);outline-offset:4px;border-radius:999px}
 .sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -148,9 +149,7 @@ h2{font-size:clamp(32px,4.2vw,48px);margin-top:20px;max-width:18ch}
 .screen .ln>span{flex:1}
 .tag{display:inline-block;flex:none;font-size:12px;font-weight:700;letter-spacing:.02em;padding:3px 10px;border-radius:999px;color:var(--ink);background:var(--bg);font-style:normal;
   --sh:3px 3px 6px var(--shadow-dark),-3px -3px 6px var(--shadow-light)}
-.tag.ok{background:#AE3D25;color:#FFFFFF}
-:root[data-theme="dark"] .tag.ok{background:var(--accent);color:var(--on-accent)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tag.ok{background:var(--accent);color:var(--on-accent)}}
+.tag.ok{background:var(--ok-bg);color:var(--on-accent)}
 .sub{display:block;color:var(--ink-soft);font-size:13px}
 .caret{display:inline-block;width:9px;height:17px;vertical-align:-3px;background:var(--hot);animation:blink 1s steps(1) infinite}
 
@@ -294,6 +293,7 @@ footer{padding:24px 0 48px}
 .cityrow{display:flex;gap:10px}
 .cityrow input{flex:1;min-width:0;height:44px;padding:0 18px;border:0;border-radius:999px;font:500 15px var(--font);color:var(--ink);background:var(--bg);
   box-shadow:inset 3px 3px 6px var(--inset-dark),inset -3px -3px 6px var(--shadow-light);-webkit-appearance:none;appearance:none}
+.cityrow input{caret-color:var(--hot-ink)}
 .cityrow input::placeholder{color:var(--ink-soft);opacity:1}
 .cityrow input:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .cityres{display:grid;gap:8px}
@@ -356,6 +356,7 @@ footer{padding:24px 0 48px}
 .hstrip{display:grid;width:auto;gap:20px;transform:none;padding:0;will-change:auto}
 .hstrip .value{width:auto;overflow:visible}
 .h-split{display:block}
+.h-split .wd{display:inline-block;white-space:nowrap}
 .h-split .ch{display:inline-block;will-change:transform,opacity;
   text-shadow:calc(var(--l,1)*-1px) calc(var(--l,1)*-1px) 0 var(--shadow-light),calc(var(--l,1)*2px) calc(var(--l,1)*3px) calc(var(--l,1)*4px) var(--shadow-dark)}
 .anim .h-split .ch{--l:0;opacity:0;transform:translateY(18px)}
@@ -469,9 +470,9 @@ footer{padding:24px 0 48px}
           <div class="inst-card raised sf0 glow">
             <div class="inst tface pressed sf0">
               <svg viewBox="0 0 200 200" aria-hidden="true"><line class="tick" x1="33.5" y1="166.5" x2="30.0" y2="170.0"/><line class="tick" x1="7.2" y1="85.3" x2="2.2" y2="84.5"/><line class="tick" x1="57.3" y1="16.2" x2="55.1" y2="11.8"/><line class="tick" x1="142.7" y1="16.2" x2="144.9" y2="11.8"/><line class="tick" x1="192.8" y1="85.3" x2="197.8" y2="84.5"/><line class="tick" x1="166.5" y1="166.5" x2="170.0" y2="170.0"/><path class="trk" d="M40.60 159.40 A84 84 0 1 1 159.40 159.40"/><path class="arc" id="tArc" d="M40.60 159.40 A84 84 0 1 1 159.40 159.40" pathLength="100" stroke-dasharray="0 100" opacity="0"/></svg>
-              <div class="tcore sf0"><div class="lcd sf0"><b id="tVal" aria-label="Temperatura no disponible">—</b></div></div>
+              <div class="tcore sf0"><div class="lcd sf0"><b id="tVal" aria-hidden="true">—</b></div></div>
             </div>
-            <p class="amb-cap" aria-live="polite"><strong id="tCity">Buscando…</strong><span id="tSrc">Temperatura actual</span></p>
+            <p class="amb-cap" aria-live="polite"><strong id="tCity">Rosario</strong><span class="sr" id="tSr">Temperatura no disponible</span><span id="tSrc">Temperatura actual</span></p>
           </div>
           <div class="amb-actions">
             <button class="btn sm sf0" type="button" id="geoBtn"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="2.5"/><path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2"/></svg>Usar mi ubicación</button>
@@ -757,6 +758,7 @@ footer{padding:24px 0 48px}
     dials.forEach(function(x){x.classList.add("on")});
     fill.style.transform="none";
     $(".seg:not(.empty)").forEach(function(e){e.style.setProperty("--l",1);e.style.opacity=1});
+    $("#stats .num[data-count]").forEach(function(e){e.innerHTML=e.dataset.count+(e.dataset.suffix||"")});
   }
   if(reduce||!window.gsap||!window.ScrollTrigger){finalState();return}
 
@@ -857,12 +859,13 @@ footer{padding:24px 0 48px}
     if(!h || h.dataset.split) return;
     var txt=h.textContent; h.dataset.split="1"; h.setAttribute("aria-label",txt);
     h.textContent=""; h.classList.add("h-split");
-    for(var i=0;i<txt.length;i++){
-      var c=txt[i], sp=d.createElement("span");
-      if(c===" "){h.appendChild(d.createTextNode(" "));continue;}
-      sp.className="ch"; sp.textContent=c; sp.setAttribute("aria-hidden","true");
-      h.appendChild(sp);
-    }
+    /* cada palabra en un bloque sin corte: el renglón solo se parte entre palabras */
+    txt.split(/\s+/).filter(Boolean).forEach(function(w,wi){
+      if(wi) h.appendChild(d.createTextNode(" "));
+      var wd=d.createElement("span"); wd.className="wd"; wd.setAttribute("aria-hidden","true");
+      for(var i=0;i<w.length;i++){var sp=d.createElement("span");sp.className="ch";sp.textContent=w[i];wd.appendChild(sp);}
+      h.appendChild(wd);
+    });
   }
   $(".h-anim").forEach(splitHeading);
   ScrollTrigger.batch(".h-anim",{
@@ -913,8 +916,9 @@ footer{padding:24px 0 48px}
   $("#stats .num[data-count]").forEach(function(el){
     var target=+el.dataset.count, suffix=el.dataset.suffix||"";
     var obj={v:0};
-    gsap.to(obj,{v:target,ease:"none",
-      scrollTrigger:{trigger:el,start:"top 90%",end:"top 55%",scrub:.4},
+    el.innerHTML=0+suffix;
+    gsap.to(obj,{v:target,duration:1.1,ease:"power2.out",
+      scrollTrigger:{trigger:el,start:"top 90%",once:true},
       onUpdate:function(){el.innerHTML=Math.round(obj.v)+suffix}
     });
   });
@@ -940,7 +944,7 @@ footer{padding:24px 0 48px}
 })();
 </script>
 <script>
-/* reloj + clima: sin cargo y sin claves. Ciudad aproximada por IP (GeoJS; si falla, Rosario), temperatura de Open-Meteo,
+/* reloj + clima: sin cargo y sin claves. Arranca con la última ciudad elegida o Rosario (sin consultar la IP), temperatura de Open-Meteo,
    ubicación precisa solo si la persona toca el botón (nombre vía BigDataCloud client-side), búsqueda con Open-Meteo Geocoding. */
 (function(){
   var d=document,reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -957,13 +961,20 @@ footer{padding:24px 0 48px}
     if(t!==lastTxt){lastTxt=t;txt.textContent=t;txt.setAttribute("datetime",("0"+n.getHours()).slice(-2)+":"+("0"+n.getMinutes()).slice(-2))}
   }
   if(reduce){draw(false);(function tick(){draw(false);setTimeout(tick,1000-new Date().getMilliseconds()+5)})()}
-  else{(function loop(){draw(true);requestAnimationFrame(loop)})()}
+  else{
+    /* aguja continua solo mientras el reloj se ve y la pestaña está activa */
+    var raf=0,seen=true,clock=hS.closest(".inst")||hS;
+    var loop=function(){draw(true);raf=requestAnimationFrame(loop)};
+    var sync=function(){var on=seen&&!d.hidden;if(on&&!raf)loop();else if(!on&&raf){cancelAnimationFrame(raf);raf=0}};
+    if("IntersectionObserver" in window)new IntersectionObserver(function(e){seen=e[e.length-1].isIntersecting;sync()}).observe(clock);
+    d.addEventListener("visibilitychange",sync);sync();
+  }
 
   /* ---------- clima ---------- */
   var KEY="teskel-clima",DEF={name:"Rosario",lat:-32.9468,lon:-60.6393,src:"def"};
-  var tVal=d.getElementById("tVal"),tCity=d.getElementById("tCity"),tSrc=d.getElementById("tSrc"),arc=d.getElementById("tArc"),msg=d.getElementById("ambMsg");
+  var tVal=d.getElementById("tVal"),tSr=d.getElementById("tSr"),tCity=d.getElementById("tCity"),tSrc=d.getElementById("tSrc"),arc=d.getElementById("tArc"),msg=d.getElementById("ambMsg");
   var place=null,timer=0,lastOk=0,reqId=0;
-  var SRC={ip:"Ubicación aproximada",geo:"Tu ubicación",man:"Elegida por vos",def:"Rosario (por defecto)"};
+  var SRC={geo:"Tu ubicación",man:"Elegida por vos",def:"Rosario (por defecto)"};
   function getJSON(u,ms){
     var c=window.AbortController?new AbortController():null,t=c?setTimeout(function(){c.abort()},ms||8000):0;
     return fetch(u,c?{signal:c.signal}:{}).then(function(r){clearTimeout(t);if(!r.ok)throw new Error(r.status);return r.json()});
@@ -971,9 +982,9 @@ footer{padding:24px 0 48px}
   function save(p){try{localStorage.setItem(KEY,JSON.stringify(p))}catch(e){}}
   function load(){try{var p=JSON.parse(localStorage.getItem(KEY)||"null");if(p&&isFinite(p.lat)&&isFinite(p.lon)&&p.name)return p}catch(e){}return null}
   function showTemp(v){
-    if(v==null||!isFinite(v)){tVal.textContent="—";tVal.setAttribute("aria-label","Temperatura no disponible");arc.setAttribute("opacity","0");return}
+    if(v==null||!isFinite(v)){tVal.textContent="—";tSr.textContent="Temperatura no disponible";arc.setAttribute("opacity","0");return}
     var r=Math.round(v);
-    tVal.innerHTML=r+"<small>°C</small>";tVal.setAttribute("aria-label",r+" grados");
+    tVal.innerHTML=r+"<small>°C</small>";tSr.textContent=r+" grados";
     var pc=Math.max(2,Math.min(100,(v+10)/50*100));
     arc.setAttribute("stroke-dasharray",pc.toFixed(1)+" 100");arc.setAttribute("opacity","1");
   }
@@ -984,18 +995,10 @@ footer{padding:24px 0 48px}
   function refresh(){
     if(!place)return;var id=++reqId,p=place;
     getJSON("https://api.open-meteo.com/v1/forecast?latitude="+p.lat.toFixed(3)+"&longitude="+p.lon.toFixed(3)+"&current=temperature_2m")
-      .then(function(j){if(id!==reqId)return;var v=j&&j.current&&j.current.temperature_2m;if(typeof v!=="number")throw 0;showTemp(v);lastOk=Date.now();msg.textContent=""})
-      .catch(function(){if(id!==reqId)return;showTemp(null);msg.textContent="No pudimos traer la temperatura. Probamos de nuevo en unos minutos."});
+      .then(function(j){if(id!==reqId)return;var v=j&&j.current&&j.current.temperature_2m;if(typeof v!=="number")throw 0;showTemp(v);lastOk=Date.now();tSrc.textContent=SRC[p.src]||""})
+      .catch(function(){if(id!==reqId)return;showTemp(null);tSrc.textContent="Sin datos por ahora"});
   }
-  function ipPlace(){
-    return getJSON("https://get.geojs.io/v1/ip/geo.json",6000).then(function(j){
-      var la=parseFloat(j.latitude),lo=parseFloat(j.longitude);if(!isFinite(la)||!isFinite(lo))throw 0;
-      return {name:j.city||j.region||j.country||"Tu zona",lat:la,lon:lo,src:"ip"};
-    });
-  }
-  var saved=load();
-  if(saved)setPlace(saved);
-  else ipPlace().then(setPlace).catch(function(){setPlace(DEF)});
+  setPlace(load()||DEF);
   timer=setInterval(refresh,15*60*1000);
   d.addEventListener("visibilitychange",function(){if(!d.hidden&&place&&Date.now()-lastOk>15*60*1000)refresh()});
 
