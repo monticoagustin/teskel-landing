@@ -195,7 +195,7 @@ Ancho completo: el contenido ocupa todo el viewport con el mismo margen a izquie
 
 Los papelitos se ubican midiendo el texto del hero (`zone()`): nunca tapan el titular ni la bajada, en ningún ancho. Bajo 760px se muestran menos papelitos y las tarjetas ocultan el texto secundario.
 
-La barra superior es una píldora elevada fija; bajo 860px se reemplaza la navegación por un botón "Menú" con drawer. Secciones, en orden: hero, "Probalo" (demo de aprobación), "Dos semanas sin cargo y sin compromiso", manifiesto "Somos nuevos…", contacto "¿Arrancamos?".
+La barra superior es una píldora elevada fija; bajo 860px se reemplaza la navegación por un botón "Menú" con drawer. En escritorio, los títulos de "Cómo se aprueba" y "La prueba" van a la izquierda y su bajada a la derecha; el manifiesto ocupa casi todo el ancho. Las tres tarjetas de la demo tienen la misma altura y los botones alineados al pie. Secciones, en orden: hero, "Cómo se aprueba" (demo de aprobación), "Dos semanas sin cargo y sin compromiso", manifiesto "Somos nuevos…", contacto "¿Arrancamos?".
 
 ## Elevation & Depth
 

@@ -152,7 +152,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 /* aprobá vos */
 .tray{margin-top:44px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px}
 @media (max-width:960px){.tray{grid-template-columns:minmax(0,1fr)}}
-.draft{position:relative;background:var(--masilla);border-radius:34px;padding:24px;display:grid;gap:14px;align-content:start;box-shadow:var(--up);transition:box-shadow .35s var(--ease)}
+.draft{position:relative;background:var(--masilla);border-radius:34px;padding:24px;display:grid;gap:14px;grid-template-rows:auto 1fr auto auto;box-shadow:var(--up);transition:box-shadow .35s var(--ease)}
 .draft .k{font:700 13px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-suave);display:flex;align-items:center;gap:10px}
 .draft .k i{width:12px;height:12px;border-radius:3px;background:var(--c)}
 .screen{border-radius:22px;padding:16px 18px;font-size:15px;line-height:1.5;box-shadow:var(--in);transition:opacity .3s}
@@ -195,7 +195,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 @media (max-width:700px){.days{grid-template-columns:repeat(7,minmax(0,1fr))}.phases{grid-template-columns:minmax(0,1fr)}}
 
 /* somos nuevos */
-.manifest{font:800 clamp(34px,5.2vw,76px)/1.02 var(--display);font-variation-settings:"wdth" 80;letter-spacing:-.03em;max-width:20ch}
+.manifest{font:800 clamp(34px,5.2vw,76px)/1.02 var(--display);font-variation-settings:"wdth" 80;letter-spacing:-.03em;max-width:34ch}
+.sec h2.manifest{max-width:34ch}
 .manifest .w{display:inline-block}
 .manifest .hi{color:var(--brasa-tinta)}
 
@@ -219,6 +220,12 @@ html.lenis,html.lenis body{height:auto}
 .lenis:not(.lenis-autoToggle).lenis-stopped{overflow:clip}
 .lenis.lenis-smooth iframe{pointer-events:none}
 
+@media (min-width:960px){
+  #aproba .sec,#prueba .sec{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);column-gap:clamp(32px,6vw,120px);align-items:end}
+  #aproba .sec>*,#prueba .sec>*{grid-column:1/-1}
+  #aproba .sec>h2,#prueba .sec>h2{grid-column:1}
+  #aproba .sec>.sub,#prueba .sec>.sub{grid-column:2;margin-top:0;padding-bottom:6px}
+}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -309,7 +316,7 @@ html.lenis,html.lenis body{height:auto}
 
   <section class="wrap" id="aproba" aria-labelledby="h-aproba">
     <div class="inner sec">
-      <h2 id="h-aproba">Probalo: vos tenés la última palabra.</h2>
+      <h2 id="h-aproba">Cómo se aprueba. Vos tenés la última palabra.</h2>
       <p class="sub">Así te llega lo que preparan los agentes, ya revisado por una persona del equipo. Aprobado, sale tal cual. Si pedís un cambio, lo ajustamos y te lo volvemos a mostrar.</p>
       <div class="tray">
         <article class="draft" style="--c:var(--p-mail)">
