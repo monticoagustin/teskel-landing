@@ -9,9 +9,9 @@ Landing neumórfica actual de Teskel; sin pixel art.
 - Identidad: neumorfismo; logo oficial desde 2026-11-04 = round neumorphic (anillo elevado, hueco hundido, círculo slate al centro).
 
 ## Contenido
-- `index.html` + assets + redirects de la landing (raíz del Space, sin `demo/`)
+- `index.html` + assets + redirects de la landing (raíz del Space, sin `constructora/`, `n40/` ni `3df/`)
 - `GUIA_DE_MARCA.md` + logos neumórficos oficiales
 - (si existe) contexto `teskel-brand-review`
 
 ## Excluido
-`demo/constructora`, `demo/n40`, pixel art, drafts Instagram, Genus, WiWU, kits OneDrive, notas Gmail, research.
+`constructora/`, `n40/`, `3df/` (antes `demo/...`, el prefijo se eliminó el 2026-11-09), pixel art, drafts Instagram, Genus, WiWU, kits OneDrive, notas Gmail, research.
