@@ -194,6 +194,8 @@ components:
     height: "72px"
 ---
 
+> **Actualización 2026-11-09 — rediseño "El anillo".** El `index.html` publicado pasó a un solo mundo cálido y táctil, sin tema oscuro. Tipografía: Bricolage Grotesque (titulares, eje de ancho condensado) + Figtree (texto), incrustadas en el archivo. Brasa de acción `#FF5A3C` (texto en `#B3341C`), tinta `#2A2622`, masilla `#ECE7E2`. Animación con GSAP + ScrollTrigger (anillo que ordena los papelitos, sección fijada de 4 momentos). Lo de abajo describe la versión anterior (General Sans, "Noche de río") y queda pendiente de reescribir.
+
 # Design System: teskel
 
 ## Overview
