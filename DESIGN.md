@@ -87,9 +87,8 @@ rounded:
   contact: "48px"
   pill: "999px"
 spacing:
-  gutter: "16px"
+  gutter: "clamp(16px, 3vw, 48px)"
   section: "clamp(72px, 10vw, 128px)"
-  inner-max: "1240px"
 components:
   button-hot:
     backgroundColor: "{colors.brasa}"
@@ -190,7 +189,7 @@ Los titulares usan `text-wrap: balance` y cada palabra va en un bloque sin corte
 
 ## Layout
 
-Gutter de 16px más el área segura del dispositivo; contenido en un `.inner` de hasta 1240px. Secciones con padding vertical clamp(72px, 10vw, 128px).
+Ancho completo: el contenido ocupa todo el viewport con el mismo margen a izquierda y derecha, `clamp(16px, 3vw, 48px)` más el área segura del dispositivo. Sin contenedor centrado ni tope de ancho; el texto se limita por `ch`, no por el contenedor. Secciones con padding vertical clamp(72px, 10vw, 128px).
 
 **Escena fijada (hero):** una sección de 100svh que queda pinneada ~1800px de scroll con un timeline scrubbed: el anillo cruza los papelitos, aparecen tres beats ("Esto es tu semana." / "Nuestros agentes lo ordenan." / "Una persona del equipo lo revisa."), los papelitos se hunden, y aparecen tres tarjetas con datos de ejemplo. Un riel de progreso de 4 pasos acompaña al pie.
 
@@ -218,7 +217,7 @@ Orden = formas blandas: controles en píldora (999px); superficies de 28–48px 
 
 ## Motion
 
-GSAP 3 + ScrollTrigger, incrustados en el HTML (sin CDN). Todo el movimiento está ligado al scroll (scrub) o a una acción del visitante; nada se anima solo en bucle. Con `prefers-reduced-motion: reduce` no se carga la capa animada: el hero queda estático, los papelitos y tarjetas se muestran en flujo normal y los 14 días de la prueba aparecen ya encendidos. Los contadores y revelados corren una sola vez.
+GSAP 3 + ScrollTrigger + Lenis (scroll suave), incrustados en el HTML (sin CDN). Lenis corre sobre el ticker de GSAP y alimenta a ScrollTrigger (`scrub: true`): una sola fuente de verdad para el scroll. Los enlaces internos viajan con `lenis.scrollTo`. En táctil se deja el scroll nativo. Todo el movimiento está ligado al scroll (scrub) o a una acción del visitante; nada se anima solo en bucle. Con `prefers-reduced-motion: reduce` no se carga la capa animada ni Lenis: el hero queda estático, los papelitos y tarjetas se muestran en flujo normal y los 14 días de la prueba aparecen ya encendidos. Los contadores y revelados corren una sola vez.
 
 ## Components
 
