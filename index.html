@@ -51,6 +51,8 @@ nav button[aria-current="step"]::before{display:block}
 /* bloque de la parada: sin caja */
 .parada{position:fixed;left:max(var(--margen),env(safe-area-inset-left,0px));right:max(var(--margen),env(safe-area-inset-right,0px));bottom:calc(72px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:flex-start;transition:opacity .35s ease,transform .35s ease}
 .parada.cambia{opacity:0;transform:translateY(10px)}
+.parada{pointer-events:none}
+.parada .acciones{pointer-events:auto}
 .parada .rotulo{margin:0 0 18px;font:500 13px/1 var(--texto);letter-spacing:.14em;text-transform:uppercase;color:var(--ambar);font-variant-numeric:tabular-nums}
 .parada h1{margin:0 0 20px;max-width:12ch;font:500 clamp(40px,5.8vw,84px)/.98 var(--display);letter-spacing:-.05em;text-wrap:balance}
 .parada h1 em{font-style:normal;color:var(--ambar)}
@@ -249,7 +251,7 @@ function resolver(k){
   requestAnimationFrame(paso);
 }
 /* ---------- clips: los papeles se ordenan (parada 1) y la puerta se abre o se cierra (parada 5) ---------- */
-const CLIPS = { 0:{ nombre:"luz", pos:0, meta:0, fps:24 }, 1:{ nombre:"papeles", pos:0, meta:0, fps:24 }, 5:{ nombre:"puerta", pos:0, meta:0, fps:24 } };
+const CLIPS = { 0:{ nombre:"luz", pos:0, meta:0, fps:40 }, 1:{ nombre:"papeles", pos:0, meta:0, fps:24 }, 5:{ nombre:"puerta", pos:0, meta:0, fps:24 } };
 function bajarClip(c){
   if(c.cargado) return c.cargado;
   c.cargado = (async()=>{ const buf = await fetch(`assets/hero/clips/${c.nombre}.jpg`).then(r=>{ if(!r.ok) throw 0; return r.arrayBuffer(); });
@@ -365,6 +367,7 @@ function cuadro(t){
   quieto = Math.abs(actual-Math.round(actual))<1e-4 && vel===0;
   precargar(actual);
   const k = Math.round(actual);
+  if(quieto && k===0 && (CLIPS[1].meta || CLIPS[1].pos)){ CLIPS[1].meta = 0; CLIPS[1].pos = 0; resuelta[1] = false; }
   if(quieto && CLIPS[k]){ dibujarClip(CLIPS[k], k, dt); llegada.k = k; }
   else if(quieto){
     const A=bitmaps.get(`p${k}_antes`), B=bitmaps.get(`p${k}_despues`);
@@ -387,7 +390,9 @@ function cuadro(t){
   await Promise.all([decodificar({parada:0,estado:"antes"}), decodificar({parada:0,estado:"despues"})]);
   try{ await document.fonts.ready; }catch{}
   medir(); document.getElementById("carga").classList.add("fuera"); requestAnimationFrame(cuadro);
+  bajarClip(CLIPS[0]).then(()=>{ for(let i=0;i<=8;i++) clipBitmap(CLIPS[0], i); });
   for(let k=1;k<=N;k++){ await bajar({parada:k,estado:"antes"}); await bajar({parada:k,estado:"despues"}); }
+  await bajarClip(CLIPS[1]); await bajarClip(CLIPS[5]);
 })();
 </script>
 </body>
