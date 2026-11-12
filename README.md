@@ -11,8 +11,10 @@ Landing de teskel: una habitación de noche renderizada en Blender que se recorr
 
 ## Contenido
 - `index.html` (el hero) + `assets/hero/` (cuadros del recorrido, tomas fijas, clips de interacción y zonas clickeables) + `favicon.svg`; redirects de la landing (raíz del Space, sin `constructora/`, `n40/` ni `3df/`)
-- `GUIA_DE_MARCA.md` + logos neumórficos oficiales
+- `DESIGN.md` (resumen de la marca) y `PRODUCT.md` (qué es teskel). La fuente completa de la marca (logos, tokens, componentes) es el sistema de diseño "teskel" en claude.ai.
 - (si existe) contexto `teskel-brand-review`
+
+La guía vieja (`GUIA_DE_MARCA.md`, logo round neumórfico) quedó reemplazada el 2026-11-11: teskel ya no usa neumorfismo ni pixel art.
 
 ## Excluido
 `constructora/`, `n40/`, `3df/` (antes `demo/...`, el prefijo se eliminó el 2026-11-09), pixel art, drafts Instagram, Genus, WiWU, kits OneDrive, notas Gmail, research.
