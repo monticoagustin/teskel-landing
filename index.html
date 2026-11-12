@@ -74,14 +74,28 @@ nav button[aria-current="step"]::before{display:block}
 
 .barra{position:fixed;left:0;right:0;bottom:0;height:3px;background:rgba(243,236,225,.08)}
 .barra i{display:block;height:100%;background:var(--ambar);transform-origin:left;transform:scaleX(0)}
-.etiqueta{position:fixed;left:0;top:0;pointer-events:none;font:500 13px/1 var(--texto);color:var(--crema);display:inline-flex;align-items:center;gap:8px;transform:translate(16px,14px);opacity:0;transition:opacity .15s;text-shadow:0 1px 10px rgba(0,0,0,.8)}
-.etiqueta::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ambar)}
-.etiqueta.ver{opacity:1}
 :is(nav button,.boton,.enlace,.logo,.capitulos button):focus-visible{outline:2px solid var(--ambar);outline-offset:4px;border-radius:4px}
 
 /* capítulos de "Así trabajamos" */
 .capitulos{position:fixed;inset:0;display:grid;align-content:end;padding:0 max(var(--margen),env(safe-area-inset-left,0px)) calc(72px + env(safe-area-inset-bottom,0px));background:linear-gradient(to top,rgba(18,14,11,.94),rgba(18,14,11,.55) 60%,rgba(18,14,11,.2))}
 .capitulos[hidden]{display:none}
+/* el celular de cerca: lista de chats */
+.wa{position:fixed;inset:0;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px));background:rgba(10,8,6,.5);opacity:0;transition:opacity .35s}
+.wa[hidden]{display:none}
+.wa.ver{opacity:1}
+.wa .tel{width:min(360px,100%);height:min(680px,calc(100dvh - 140px));background:#0B141A;border-radius:34px;box-shadow:0 0 0 9px #15110E,0 0 0 10px #2A211A,0 30px 80px rgba(0,0,0,.6);display:flex;flex-direction:column;overflow:hidden;color:#E9EDEF;font-family:var(--texto)}
+.wa .barra-tel{display:flex;justify-content:space-between;padding:14px 26px 6px;font:600 13px/1 var(--texto);color:#C9D1D6}
+.wa h2{margin:0;padding:10px 22px 14px;font:600 26px/1.1 var(--texto);letter-spacing:-.01em}
+.wa ul{list-style:none;margin:0;padding:0 6px;flex:1;overflow:auto}
+.wa li{display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:center;padding:12px 14px;border-radius:14px;opacity:0;transform:translateY(14px);transition:opacity .4s,transform .4s}
+.wa li.ver{opacity:1;transform:none}
+.wa li .av{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font:600 17px/1 var(--texto);color:#0B141A}
+.wa li b{display:block;font:600 16px/1.2 var(--texto);margin-bottom:4px}
+.wa li span{display:block;font:400 15px/1.3 var(--texto);color:#AEBAC1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wa li small{display:flex;flex-direction:column;align-items:flex-end;gap:6px;font:500 12px/1 var(--texto);color:#25D366}
+.wa li small i{font-style:normal;min-width:20px;height:20px;padding:0 6px;box-sizing:border-box;border-radius:10px;background:#25D366;color:#0B141A;display:grid;place-items:center;font:700 12px/1 var(--texto)}
+.wa .acciones{margin-top:22px;justify-content:center}
+body.modal .parada, body.modal .desliza, body.modal .barra{opacity:0;pointer-events:none}
 .capitulos .rotulo{margin:0 0 18px;font:500 13px/1 var(--texto);letter-spacing:.14em;text-transform:uppercase;color:var(--ambar)}
 .capitulos h2{margin:0 0 14px;font:500 clamp(40px,5.2vw,76px)/.98 var(--display);letter-spacing:-.05em}
 .capitulos > p.lead{margin:0 0 36px;font:400 20px/1.55 var(--texto);color:var(--crema-2)}
@@ -100,11 +114,11 @@ nav button[aria-current="step"]::before{display:block}
 .carga.fuera{opacity:0;pointer-events:none}
 
 /* escena: canvas + capas que acompañan el movimiento del mouse */
-.escena{position:fixed;inset:0;will-change:transform}
+.escena{position:fixed;inset:0;will-change:transform;transform-origin:0 0}
 .escena canvas{position:absolute;inset:0;width:100%;height:100%}
 #polvo{pointer-events:none}
-.pista{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;pointer-events:none;opacity:0;transition:opacity .5s}
-.pista.ver{opacity:1}
+.pista{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;pointer-events:none;opacity:0}
+.pista.ver{opacity:1;transition:opacity .5s}
 .pista::before,.pista::after{content:"";position:absolute;inset:16px;border-radius:50%;background:var(--ambar);box-shadow:0 0 12px rgba(255,181,71,.8)}
 .pista::after{inset:8px;background:none;border:1.5px solid rgba(255,181,71,.7);box-shadow:none;animation:late 1.8s ease-out infinite}
 @keyframes late{0%{transform:scale(.6);opacity:1}100%{transform:scale(1.6);opacity:0}}
@@ -116,11 +130,6 @@ nav button[aria-current="step"]::before{display:block}
 .desliza i{width:22px;height:34px;border:1.5px solid rgba(243,236,225,.7);border-radius:11px;position:relative}
 .desliza i::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;margin-left:-1.5px;border-radius:2px;background:var(--ambar);animation:rueda 1.6s ease-in-out infinite}
 @keyframes rueda{0%{transform:translateY(0);opacity:1}70%{transform:translateY(10px);opacity:0}100%{opacity:0}}
-.sonido{all:unset;cursor:pointer;position:fixed;right:max(var(--margen),env(safe-area-inset-right,0px));bottom:calc(26px + env(safe-area-inset-bottom,0px));display:inline-flex;align-items:center;gap:8px;min-height:44px;font:500 13px/1 var(--texto);letter-spacing:.08em;text-transform:uppercase;color:rgba(243,236,225,.6)}
-.sonido:hover,.sonido[aria-pressed="true"]{color:var(--crema)}
-.sonido svg{width:18px;height:18px}
-.sonido[aria-pressed="true"] .onda{opacity:1}.sonido .onda{opacity:.25}
-.sonido:focus-visible{outline:2px solid var(--ambar);outline-offset:4px;border-radius:4px}
 .solo-lectores{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .capitulos .como{margin:-12px 0 32px;font:400 16px/1.55 var(--texto);color:var(--crema-3)}
 
@@ -173,33 +182,40 @@ nav button[aria-current="step"]::before{display:block}
 
 <div class="barra" aria-hidden="true"><i id="avance"></i></div>
 <div class="desliza" id="desliza" aria-hidden="true"><i></i><span id="deslizaTxt">Scrolleá para recorrer</span></div>
-<button type="button" class="sonido" id="sonido" aria-pressed="false" aria-label="Activar sonido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor" stroke="none"/><path class="onda" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg><span>Sonido</span></button>
 
 <section class="solo-lectores" aria-label="Qué hace teskel">
   <h2>Soluciones con inteligencia artificial para tu negocio</h2>
   <p>teskel arma soluciones con inteligencia artificial para que tu negocio funcione, y bien.</p>
-  <h3>Apps que trabajan</h3><p>Una app que hace por vos las tareas aburridas o complejas: cargar datos, ordenar turnos, responder consultas, seguir pedidos.</p>
-  <h3>Reportes claros</h3><p>Reportes y dashboards que cuentan la historia y el presente de tu negocio, sin jerga.</p>
+  <h3>Apps que trabajan</h3><p>Una app que hace por vos las tareas aburridas o complejas: cargar datos, ordenar turnos, responder consultas.</p>
+  <h3>Reportes claros</h3><p>Reportes y dashboards que cuentan la historia y el presente de tu negocio.</p>
   <h3>Tu web</h3><p>Una página que te haga sentir identificado y muestre tu negocio tal cual querés que se vea.</p>
   <h3>Cómo arrancamos</h3><p>Charlamos, probás dos semanas sin cargo y, si te sirve, seguimos juntos.</p>
   <h3>Contacto</h3><p>WhatsApp <a href="https://wa.me/5493412610641">+54 9 341 261-0641</a> · Email <a href="mailto:teskel.online@gmail.com">teskel.online@gmail.com</a> · Instagram <a href="https://www.instagram.com/teskel.online/">@teskel.online</a></p>
 </section>
 <noscript><p style="position:fixed;inset:auto 24px 24px;color:#F3ECE1;font:400 17px/1.5 system-ui">La habitación necesita JavaScript. Escribinos por WhatsApp al +54 9 341 261-0641 o a teskel.online@gmail.com.</p></noscript>
 
+<section class="wa" id="wa" hidden aria-labelledby="waTitulo">
+  <div class="tel">
+    <div class="barra-tel" aria-hidden="true"><span>9:41</span><span>teskel</span></div>
+    <h2 id="waTitulo">Chats</h2>
+    <ul id="waLista"></ul>
+  </div>
+  <div class="acciones"><a class="boton" href="https://wa.me/5493412610641" target="_blank" rel="noopener">Escribinos vos también</a><button type="button" class="enlace" id="waCerrar">Volver a la habitación</button></div>
+</section>
+
 <section class="capitulos" id="capitulos" hidden aria-labelledby="capTitulo">
   <p class="rotulo">Soluciones con IA · 3 capítulos</p>
   <h2 id="capTitulo">Qué hacemos.</h2>
   <p class="lead">Soluciones con inteligencia artificial para que tu negocio funcione, y bien.</p>
   <ol>
-    <li><b>1</b><span>Apps que trabajan</span><small>Una app que hace por vos las tareas aburridas o complejas: cargar datos, ordenar turnos, responder consultas, seguir pedidos.</small></li>
-    <li><b>2</b><span>Reportes claros</span><small>Reportes y dashboards que cuentan la historia y el presente de tu negocio, sin jerga.</small></li>
+    <li><b>1</b><span>Apps que trabajan</span><small>Una app que hace por vos las tareas aburridas o complejas: cargar datos, ordenar turnos, responder consultas.</small></li>
+    <li><b>2</b><span>Reportes claros</span><small>Reportes y dashboards que cuentan la historia y el presente de tu negocio.</small></li>
     <li><b>3</b><span>Tu web</span><small>Una página que te haga sentir identificado y muestre tu negocio tal cual querés que se vea.</small></li>
   </ol>
   <p class="como">Cómo arrancamos: charlamos, probás dos semanas sin cargo y, si te sirve, seguimos juntos.</p>
   <div class="acciones"><button type="button" class="boton" id="capHablar">Quiero probar</button><button type="button" class="enlace" id="capCerrar">Volver a la habitación</button></div>
 </section>
 
-<div class="etiqueta" id="etiqueta" aria-hidden="true"></div>
 <div class="carga" id="carga"><div>
   <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="none" stroke="#F3ECE1" stroke-opacity=".4" stroke-width="5"/><rect x="45.5" y="26.5" width="29" height="67" rx="13" fill="none" stroke="#F3ECE1" stroke-width="7.5"/><rect class="luz" x="53.5" y="34.5" width="13" height="23" rx="3" fill="#FFB547"/></svg>
   <span>Prendiendo la habitación…</span>
@@ -219,12 +235,12 @@ const PARADAS = [
     acciones:[["boton","Prender la luz",()=>{ resolver(0); }],["enlace","Seguir recorriendo",sig]] },
   { nombre:"Escritorio", rotulo:"01 · Escritorio", titulo:"Los papeles, en orden.",    lead:"Apps que hacen por vos lo aburrido o complejo: facturas, turnos, planillas, seguimientos.",
     acciones:[["boton","Ordenar los papeles",()=>resolver(1)],["enlace","Seguir recorriendo",sig]] },
-  { nombre:"Tele",       rotulo:"02 · Tele",       titulo:"Qué hacemos.",              lead:"Tres capítulos: apps que trabajan, reportes que cuentan tu negocio y una web que se parezca a vos.", costado:true,
+  { nombre:"Tele",       rotulo:"02 · Tele · Tres capítulos", titulo:"Qué hacemos.",    lead:"Apps que trabajan, reportes que cuentan tu negocio y una web que se parezca a vos.", costado:true,
     acciones:[["boton","Ver los capítulos",()=>abrirCapitulos()]] },
   { nombre:"Teléfono",   rotulo:"03 · Teléfono",   titulo:"Nadie queda sin *respuesta.*", lead:"Escribinos por WhatsApp y charlamos qué necesita tu negocio.",
     acciones:[["boton","Escribinos por WhatsApp",WHATSAPP],["enlace","Seguir recorriendo",sig]] },
-  { nombre:"Sillón",     rotulo:"04 · Sillón",     titulo:"Tiempo para *vos.*",        lead:"Cuando todo funciona, el sillón vuelve a ser tuyo.",
-    acciones:[["boton","Hablemos",()=>ir(5)],["enlace","Seguir recorriendo",sig]] },
+  { nombre:"Sillón",     rotulo:"04 · Sillón",     titulo:"Tiempo para *vos.*",        lead:"¿Sos más de lo clásico? Mandanos un email y lo charlamos con calma.",
+    acciones:[["boton","teskel.online@gmail.com",MAIL],["enlace","Seguir recorriendo",sig]] },
   { nombre:"Puerta",     rotulo:"05 · Puerta",     titulo:"Hablemos.",                 lead:"Contanos qué no está funcionando. Probás dos semanas sin cargo y, si te sirve, seguimos juntos.",
     acciones:[["boton","Escribinos por WhatsApp",WHATSAPP],["enlace","teskel.online@gmail.com",MAIL]] }
 ];
@@ -304,8 +320,7 @@ function resolver(k){
 }
 /* ---------- clips: los papeles se ordenan (parada 1) y la puerta se abre o se cierra (parada 5) ---------- */
 const CLIPS = { 0:{ nombre:"luz", pos:0, meta:0, fps:40 }, 1:{ nombre:"papeles", pos:0, meta:0, fps:24 },
-  3:{ nombre:"telefono", pos:0, meta:0, fps:24, vuelve:true }, 4:{ nombre:"planta", pos:0, meta:0, fps:24, vuelve:true },
-  5:{ nombre:"puerta", pos:0, meta:0, fps:24 } };
+  3:{ nombre:"telefono", pos:0, meta:0, fps:24, vuelve:true }, 5:{ nombre:"puerta", pos:0, meta:0, fps:24 } };
 for(const k of Object.keys(CLIPS)) if(!IDX.archivos[CLIPS[k].nombre]) delete CLIPS[k];   // clip que no está en este set
 function bajarClip(c){
   if(c.cargado) return c.cargado;
@@ -319,7 +334,7 @@ async function clipBitmap(c,i){
   if(!c.blobs || i<0 || i>c.n || c.bm.has(i) || c.dec.has(i)) return; c.dec.add(i);
   try{ c.bm.set(i, await createImageBitmap(c.blobs[i])); pedirDibujo = true; }catch{} c.dec.delete(i);
 }
-function mover(k, abierto){ const c = CLIPS[k]; if(!c) return; c.meta = abierto ? 1 : 0; sonar(k, abierto); if(reducir) c.pos = c.meta; bajarClip(c); pedirDibujo = true; }
+function mover(k, abierto){ const c = CLIPS[k]; if(!c) return; c.meta = abierto ? 1 : 0; if(reducir) c.pos = c.meta; bajarClip(c); pedirDibujo = true; }
 function dibujarClip(c, k, dt){
   const A=bitmaps.get(`p${k}_antes`), B=bitmaps.get(`p${k}_despues`);
   if(!A) decodificar({parada:k,estado:"antes"}); if(!B) decodificar({parada:k,estado:"despues"});
@@ -382,19 +397,19 @@ function asentar(){
   objetivo = Math.abs(d) < 0.003 ? desde : (d > 0 ? Math.ceil(objetivo - 1e-6) : Math.floor(objetivo + 1e-6));
   objetivo = Math.max(0, Math.min(N, objetivo)); inicioGesto = null;
 }
-addEventListener("wheel",(e)=>{ if(!capitulos.hidden) return; e.preventDefault();
+addEventListener("wheel",(e)=>{ if(modal()){ if(capitulos.hidden && wa.hidden) e.preventDefault(); return; } e.preventDefault();
   if(cerrarPuertaPrimero(e.deltaY<0)){ clearTimeout(timer); return; }
   if(inicioGesto===null) inicioGesto = Math.round(objetivo);
   objetivo = Math.max(0, Math.min(N, objetivo + e.deltaY*0.0011)); if(objetivo>0.05) resolver(0); ocultarDesliza();
   clearTimeout(timer); timer = setTimeout(asentar, 220); },{ passive:false });
 let yT=null;
 lienzo.addEventListener("touchstart",(e)=>{ yT=e.touches[0].clientY; clearTimeout(timer); if(inicioGesto===null) inicioGesto=Math.round(objetivo); },{ passive:true });
-lienzo.addEventListener("touchmove",(e)=>{ if(yT===null) return; const y=e.touches[0].clientY;
+lienzo.addEventListener("touchmove",(e)=>{ if(yT===null || modal()) return; const y=e.touches[0].clientY;
   if(cerrarPuertaPrimero(y-yT>8)){ yT=y; return; } objetivo=Math.max(0,Math.min(N,objetivo+(yT-y)*0.004)); yT=y; if(objetivo>0.05) resolver(0); },{ passive:true });
 lienzo.addEventListener("touchend",()=>{ yT=null; asentar(); });
 addEventListener("keydown",(e)=>{
-  if(e.key==="Escape"){ cerrarCapitulos(); return; }
-  if(!capitulos.hidden) return;
+  if(e.key==="Escape"){ cerrarCapitulos(); if(!wa.hidden) cerrarCelular(); return; }
+  if(modal()) return;
   const k=e.key, c=Math.round(objetivo);
   if(["ArrowDown","ArrowRight","PageDown"," "].includes(k)){ e.preventDefault(); ir(c+1); }
   else if(["ArrowUp","ArrowLeft","PageUp"].includes(k)){ e.preventDefault(); if(!cerrarPuertaPrimero(true)) ir(c-1); }
@@ -402,20 +417,18 @@ addEventListener("keydown",(e)=>{
 });
 function aCuadro(e){ const r=lienzo.getBoundingClientRect(), s=lienzo.width/r.width; return { u:((e.clientX-r.left)*s-caja.x)/caja.w, v:((e.clientY-r.top)*s-caja.y)/caja.h }; }
 function zonaEn(e){ if(!quieto) return null; const k=Math.round(actual), {u,v}=aCuadro(e); return (ZONAS[k]||[]).find(z=>u>=z.x0&&u<=z.x1&&v>=z.y0&&v<=z.y1) || null; }
-const etiqueta=document.getElementById("etiqueta");
 lienzo.addEventListener("pointermove",(e)=>{ if(e.pointerType!=="mouse") return; const z=zonaEn(e); lienzo.style.cursor=z?"pointer":"default";
-  if(z){ etiqueta.textContent = z.accion==="puerta" ? (CLIPS[5] && CLIPS[5].meta ? "Cerrar la puerta" : "Abrir la puerta") : z.nombre; etiqueta.style.left=e.clientX+"px"; etiqueta.style.top=e.clientY+"px"; etiqueta.classList.add("ver"); } else etiqueta.classList.remove("ver"); });
+ });
 lienzo.addEventListener("click",(e)=>{ const z=zonaEn(e); if(!z) return; const k=Math.round(actual);
   ocultarPistas(true);
   if(z.accion==="puerta"){ mover(5, !CLIPS[5] || CLIPS[5].meta<0.5); return; }
-  if(z.accion==="planta"){ mover(4, true); return; }
-  if(z.accion==="tele") abrirCapitulos(); else if(z.accion==="whatsapp"){ window.open(WHATSAPP,"_blank","noopener"); } else resolver(k); });
+  if(z.accion==="tele") abrirCapitulos(); else if(z.accion==="whatsapp"){ abrirCelular(); } else resolver(k); });
 
-/* ---------- capas: pistas, celular vivo, polvo, mouse, grano, sonido ---------- */
+/* ---------- capas: pistas, celular vivo, polvo, mouse, grano ---------- */
 let paradaQuieta = -1, quietoDesde = 0, tocoAlgo = false;
 const escena = document.getElementById("escena"), pistas = document.getElementById("pistas");
 const aPantalla = (u,v)=>{ const r = lienzo.width/innerWidth; return [(caja.x+u*caja.w)/r, (caja.y+v*caja.h)/r]; };
-function zonasConPista(k){ return (ZONAS[k]||[]).filter(z => !((k===0 && CLIPS[0] && CLIPS[0].meta) || (k===1 && CLIPS[1] && CLIPS[1].meta))); }
+function zonasConPista(k){ return k===0 ? [] : (ZONAS[k]||[]).filter(z => !(k===1 && CLIPS[1] && CLIPS[1].meta)); }
 function ocultarPistas(tocado){ if(tocado) tocoAlgo = true; [...pistas.children].forEach(p=>p.classList.remove("ver")); }
 function ubicarPistas(k){
   const zs = zonasConPista(k);
@@ -430,7 +443,19 @@ function salir(){ ocultarPistas(); }
 
 /* el chat de WhatsApp sobre la pantalla del celular: se dibuja en un canvas chico y se pega sobre la pantalla */
 const TEL = MOVIL ? [[0.4915,0.5188],[0.5487,0.5255],[0.5092,0.5708],[0.4483,0.5631]] : [[0.4963,0.5257],[0.5211,0.5348],[0.504,0.5968],[0.4776,0.5862]]; // arriba-izq, arriba-der, abajo-der, abajo-izq
-const CHARLA = [["Hola! Se puede automatizar la carga de turnos?",0],["Sí. Contanos cómo lo hacés hoy y lo vemos.",1],["Uso una planilla y WhatsApp",0],["Perfecto, arrancamos por ahí. Probás 2 semanas sin cargo.",1]];
+const CHARLA = [["Hola teskel :)",0],["Mi negocio es un kilombo!",0],["¿Hacen páginas web?",0],["Quiero una app que genere reportes…",0]];
+/* de cerca: el celular se acerca y aparece la lista de chats */
+const wa = document.getElementById("wa"), waLista = document.getElementById("waLista");
+const CHATS = [["Martina","Hola teskel :)","#FFB547","1"],["Panadería Sol","Mi negocio es un kilombo!","#8FA6C9","3"],["Diego","¿Hacen páginas web?","#E4D8C7","1"],["Estudio Ríos","Quiero una app que genere reportes…","#C9781F","2"]];
+let zoomZ = 0, zoomMeta = 0, waTimers = [];
+const modal = ()=> !capitulos.hidden || !wa.hidden || zoomMeta===1;
+function abrirCelular(){ if(zoomMeta===1) return; zoomMeta = 1; ocultarPistas(true); }
+function mostrarChats(){ wa.hidden = false; requestAnimationFrame(()=>wa.classList.add("ver")); waLista.innerHTML = "";
+  CHATS.forEach(([n,m,c,u],i)=>{ const li=document.createElement("li"); li.innerHTML=`<span class="av" style="background:${c}">${n[0]}</span><div><b>${n}</b><span>${m}</span></div><small>ahora<i>${u}</i></small>`; waLista.appendChild(li);
+    waTimers.push(setTimeout(()=>li.classList.add("ver"), 250+i*450)); });
+  document.getElementById("waCerrar").focus(); }
+function cerrarCelular(){ waTimers.forEach(clearTimeout); waTimers=[]; wa.classList.remove("ver"); setTimeout(()=>{ wa.hidden = true; zoomMeta = 0; }, reducir?0:300); }
+document.getElementById("waCerrar").addEventListener("click", cerrarCelular);
 const chatC = document.createElement("canvas"); chatC.width=300; chatC.height=560; const cctx = chatC.getContext("2d");
 let chatMsgs = [], chatEscribe = false, chatTimer = null, chatAlfa = 0;
 function envolver(txt, ancho){ const pal=txt.split(" "), ls=[]; let l=""; for(const w of pal){ const t=l?l+" "+w:w; if(cctx.measureText(t).width>ancho && l){ ls.push(l); l=w; } else l=t; } if(l) ls.push(l); return ls; }
@@ -450,7 +475,7 @@ function iniciarChat(){ clearTimeout(chatTimer); chatMsgs=[]; chatEscribe=false;
     chatTimer=setTimeout(()=>{ chatMsgs.push(m); chatEscribe=false; pintarChat(); chatTimer=setTimeout(sigue,1300); }, m[1]?900:500); };
   chatTimer=setTimeout(sigue,900); }
 function dibujarChat(ver, dt){
-  chatAlfa += ((ver?1:0)-chatAlfa)*Math.min(1,dt*5); if(chatAlfa<0.01) return;
+  chatAlfa = ver ? chatAlfa + (1-chatAlfa)*Math.min(1,dt*5) : 0; if(chatAlfa<0.01) return;
   const r=lienzo.width/innerWidth, P=TEL.map(([u,v])=>aPantalla(u,v).map(n=>n*r)); const [[x0,y0],[x1,y1],,[x3,y3]]=P;
   pctx.save(); pctx.globalAlpha=chatAlfa; pctx.setTransform((x1-x0)/300,(y1-y0)/300,(x3-x0)/560,(y3-y0)/560,x0,y0); pctx.drawImage(chatC,0,0); pctx.restore();
 }
@@ -479,7 +504,17 @@ let mx=0, my=0, px=0, py=0;
 if(mouseFino) addEventListener("pointermove",(e)=>{ mx=e.clientX/innerWidth*2-1; my=e.clientY/innerHeight*2-1; });
 
 function extras(t, dt, k){
-  if(mouseFino){ px+=(mx-px)*Math.min(1,dt*3); py+=(my-py)*Math.min(1,dt*3); escena.style.transform=`translate3d(${(-px*10).toFixed(2)}px,${(-py*6).toFixed(2)}px,0) scale(1.03)`; }
+  if(mouseFino){ px+=(mx-px)*Math.min(1,dt*3); py+=(my-py)*Math.min(1,dt*3); }
+  // acercar el celular: escala alrededor de su pantalla
+  const zAntes = zoomZ; zoomZ = reducir ? zoomMeta : Math.max(0, Math.min(1, zoomZ + Math.sign(zoomMeta-zoomZ)*dt/0.7));
+  if(zoomMeta===1 && zAntes<1 && zoomZ>=1) mostrarChats();
+  const ez = zoomZ<.5 ? 4*zoomZ**3 : 1-(-2*zoomZ+2)**3/2;
+  const P = TEL.map(([u,v])=>aPantalla(u,v)), cxT=(P[0][0]+P[2][0])/2, cyT=(P[0][1]+P[2][1])/2;
+  const S = (mouseFino?1.03:1)*(1+2.6*ez), ox = ez>0 ? cxT : innerWidth/2, oy = ez>0 ? cyT : innerHeight/2;
+  const pivX = innerWidth/2 + (cxT-innerWidth/2)*Math.min(1,ez*4), pivY = innerHeight/2 + (cyT-innerHeight/2)*Math.min(1,ez*4);
+  const tx = pivX*(1-S) + (innerWidth/2-pivX)*ez - (mouseFino ? px*10*(1-ez) : 0), ty = pivY*(1-S) + (innerHeight/2-pivY)*ez - (mouseFino ? py*6*(1-ez) : 0);
+  document.body.classList.toggle("modal", zoomMeta===1 || !wa.hidden);
+  escena.style.transform = `translate3d(${tx.toFixed(2)}px,${ty.toFixed(2)}px,0) scale(${S.toFixed(4)})`;
   const clipCorre = CLIPS[k] && CLIPS[k].pos!==CLIPS[k].meta;
   if(quieto && !clipCorre && !luzMapa) leerLuz();
   if(!quieto || clipCorre) luzMapa = null;
@@ -497,32 +532,6 @@ function ocultarDesliza(){ desliza.classList.add("fuera"); }
 (()=>{ const c=document.createElement("canvas"); c.width=c.height=160; const g=c.getContext("2d"), im=g.createImageData(160,160);
   for(let i=0;i<im.data.length;i+=4){ const v=Math.random()*255; im.data[i]=im.data[i+1]=im.data[i+2]=v; im.data[i+3]=255; }
   g.putImageData(im,0,0); document.getElementById("grano").style.backgroundImage=`url(${c.toDataURL()})`; })();
-
-/* sonido opcional: todo sintetizado, nada se descarga */
-let audio=null, ambiente=null; const botonSonido=document.getElementById("sonido");
-function ruido(seg){ const b=audio.createBuffer(1, audio.sampleRate*seg, audio.sampleRate), d=b.getChannelData(0); let u=0; for(let i=0;i<d.length;i++){ const w=Math.random()*2-1; u=(u+0.02*w)/1.02; d[i]=u*3.5; } return b; }
-function blanco(seg){ const b=audio.createBuffer(1, audio.sampleRate*seg, audio.sampleRate), d=b.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1; return b; }
-function golpe({dur=0.08, frec=2000, q=1, vol=0.3, tipo="bandpass", ruidoso=true, osc=null}={}){
-  if(!audio || botonSonido.getAttribute("aria-pressed")!=="true") return; const t=audio.currentTime, g=audio.createGain();
-  g.gain.setValueAtTime(vol,t); g.gain.exponentialRampToValueAtTime(0.0001,t+dur); g.connect(audio.destination);
-  if(ruidoso){ const s=audio.createBufferSource(); s.buffer=blanco(dur); const f=audio.createBiquadFilter(); f.type=tipo; f.frequency.value=frec; f.Q.value=q; s.connect(f).connect(g); s.start(t); }
-  if(osc){ const o=audio.createOscillator(); o.type=osc.tipo||"sine"; o.frequency.setValueAtTime(osc.de,t); o.frequency.exponentialRampToValueAtTime(osc.a||osc.de,t+dur); o.connect(g); o.start(t); o.stop(t+dur); }
-}
-function sonar(k, abierto){
-  if(k===0 && abierto){ golpe({dur:0.05,frec:3000,q:2,vol:0.35}); setTimeout(()=>golpe({dur:0.12,vol:0.12,ruidoso:false,osc:{de:120,a:60}}),40); }
-  if(k===1 && abierto) for(let i=0;i<6;i++) setTimeout(()=>golpe({dur:0.18,frec:2600+Math.random()*1500,q:0.8,vol:0.07}), i*150);
-  if(k===3){ for(const d of [80,500]) setTimeout(()=>golpe({dur:0.32,vol:0.06,ruidoso:false,osc:{tipo:"square",de:150}}), d); }
-  if(k===4) for(let i=0;i<4;i++) setTimeout(()=>golpe({dur:0.3,frec:5000,tipo:"highpass",vol:0.035}), i*180);
-  if(k===5) golpe({dur:1.4,vol:0.05,ruidoso:false,osc:{tipo:"sawtooth",de:85,a:55}});
-}
-botonSonido.addEventListener("click", async()=>{
-  const on = botonSonido.getAttribute("aria-pressed")!=="true";
-  botonSonido.setAttribute("aria-pressed", on); botonSonido.setAttribute("aria-label", on?"Desactivar sonido":"Activar sonido");
-  if(on && !audio){ audio = new (window.AudioContext||window.webkitAudioContext)();
-    const s=audio.createBufferSource(); s.buffer=ruido(6); s.loop=true; const f=audio.createBiquadFilter(); f.type="lowpass"; f.frequency.value=420;
-    ambiente=audio.createGain(); ambiente.gain.value=0; s.connect(f).connect(ambiente).connect(audio.destination); s.start(); }
-  if(audio){ await audio.resume(); ambiente.gain.setTargetAtTime(on?0.05:0, audio.currentTime, 0.4); }
-});
 
 /* ---------- loop ---------- */
 const K = 30, C = 2*Math.sqrt(K), MIN = 60/POR_TRAMO;
@@ -564,7 +573,7 @@ function cuadro(t){
   medir(); document.getElementById("carga").classList.add("fuera"); requestAnimationFrame(cuadro);
   bajarClip(CLIPS[0]).then(()=>{ for(let i=0;i<=8;i++) clipBitmap(CLIPS[0], i); });
   for(let k=1;k<=N;k++){ await bajar({parada:k,estado:"antes"}); await bajar({parada:k,estado:"despues"}); }
-  for(const k of [1,3,5,4]) if(CLIPS[k]) await bajarClip(CLIPS[k]);
+  for(const k of [1,3,5]) if(CLIPS[k]) await bajarClip(CLIPS[k]);
 })();
 </script>
 </body>
