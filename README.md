@@ -1,16 +1,16 @@
 # teskel-landing
 
-Landing neumórfica actual de Teskel; sin pixel art.
+Landing de teskel: una habitación de noche renderizada en Blender que se recorre con el scroll.
 
 - Live: https://teskel.online/
 - Spacefast: space `spc_02ae51f4db5a45b3a6c013388fe16504`, slug `teskel`, team `monticoagustin-team`
 - Código: https://github.com/monticoagustin/teskel-landing (fuente de verdad)
 - Git del Space (destino del deploy): https://git.spacefast.com/teskel.git
 - Contacto: teskel.online@gmail.com · www.teskel.online · IG @teskel.online
-- Identidad: neumorfismo; logo oficial desde 2026-11-04 = round neumorphic (anillo elevado, hueco hundido, círculo slate al centro).
+- Identidad (desde 2026-11-11): logo tecla en su placa + "teskel" en Unbounded 500, Red Hat Text, noche cálida con ámbar. Ver DESIGN.md.
 
 ## Contenido
-- `index.html` + assets + redirects de la landing (raíz del Space, sin `constructora/`, `n40/` ni `3df/`)
+- `index.html` (el hero) + `assets/hero/` (cuadros del recorrido, tomas fijas, clips de interacción y zonas clickeables) + `favicon.svg`; redirects de la landing (raíz del Space, sin `constructora/`, `n40/` ni `3df/`)
 - `GUIA_DE_MARCA.md` + logos neumórficos oficiales
 - (si existe) contexto `teskel-brand-review`
 
