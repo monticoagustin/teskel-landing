@@ -4,16 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>teskel · Que funcione, y bien.</title>
-<meta name="description" content="teskel ordena lo que se acumula en tu negocio: papeles, turnos, planillas y mensajes. Charlamos, probás dos semanas sin cargo y, si te sirve, seguimos juntos.">
+<meta name="description" content="teskel hace soluciones con inteligencia artificial para negocios: apps que automatizan tareas aburridas o complejas, reportes y dashboards claros, y páginas web a tu medida. Probás dos semanas sin cargo.">
 <meta name="theme-color" content="#120E0B">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://teskel.online/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="teskel · Que funcione, y bien.">
-<meta property="og:description" content="Ordenamos lo que se acumula en tu negocio. Probás dos semanas sin cargo.">
+<meta property="og:description" content="Soluciones con IA para tu negocio: apps que hacen el trabajo pesado, reportes claros y tu web. Probás dos semanas sin cargo.">
 <meta property="og:url" content="https://teskel.online/">
 <meta property="og:image" content="https://teskel.online/assets/hero/paradas/p2_despues.jpg">
 <meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"teskel","url":"https://teskel.online/","slogan":"Que funcione, y bien.","description":"Soluciones con inteligencia artificial para negocios: apps que automatizan tareas, reportes y dashboards, y páginas web a medida.","email":"teskel.online@gmail.com","telephone":"+54 9 341 261-0641","areaServed":"AR","sameAs":["https://www.instagram.com/teskel.online/"],"makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Apps que automatizan tareas"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Reportes y dashboards"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Páginas web a medida"}}]}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -98,6 +99,31 @@ nav button[aria-current="step"]::before{display:block}
 @keyframes latido{50%{opacity:.35}}
 .carga.fuera{opacity:0;pointer-events:none}
 
+/* escena: canvas + capas que acompañan el movimiento del mouse */
+.escena{position:fixed;inset:0;will-change:transform}
+.escena canvas{position:absolute;inset:0;width:100%;height:100%}
+#polvo{pointer-events:none}
+.pista{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;pointer-events:none;opacity:0;transition:opacity .5s}
+.pista.ver{opacity:1}
+.pista::before,.pista::after{content:"";position:absolute;inset:16px;border-radius:50%;background:var(--ambar);box-shadow:0 0 12px rgba(255,181,71,.8)}
+.pista::after{inset:8px;background:none;border:1.5px solid rgba(255,181,71,.7);box-shadow:none;animation:late 1.8s ease-out infinite}
+@keyframes late{0%{transform:scale(.6);opacity:1}100%{transform:scale(1.6);opacity:0}}
+.vineta{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,transparent 55%,rgba(8,6,4,.55) 100%)}
+.grano{position:fixed;inset:0;pointer-events:none;opacity:.045;animation:grano .7s steps(1) infinite}
+@keyframes grano{0%{background-position:0 0}17%{background-position:-37px 51px}33%{background-position:63px -22px}50%{background-position:-81px -67px}67%{background-position:29px 88px}83%{background-position:94px 13px}}
+.desliza{position:fixed;left:50%;bottom:calc(26px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;font:500 13px/1 var(--texto);letter-spacing:.14em;text-transform:uppercase;color:var(--crema-2);pointer-events:none;transition:opacity .6s}
+.desliza.fuera{opacity:0}
+.desliza i{width:22px;height:34px;border:1.5px solid rgba(243,236,225,.7);border-radius:11px;position:relative}
+.desliza i::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;margin-left:-1.5px;border-radius:2px;background:var(--ambar);animation:rueda 1.6s ease-in-out infinite}
+@keyframes rueda{0%{transform:translateY(0);opacity:1}70%{transform:translateY(10px);opacity:0}100%{opacity:0}}
+.sonido{all:unset;cursor:pointer;position:fixed;right:max(var(--margen),env(safe-area-inset-right,0px));bottom:calc(26px + env(safe-area-inset-bottom,0px));display:inline-flex;align-items:center;gap:8px;min-height:44px;font:500 13px/1 var(--texto);letter-spacing:.08em;text-transform:uppercase;color:rgba(243,236,225,.6)}
+.sonido:hover,.sonido[aria-pressed="true"]{color:var(--crema)}
+.sonido svg{width:18px;height:18px}
+.sonido[aria-pressed="true"] .onda{opacity:1}.sonido .onda{opacity:.25}
+.sonido:focus-visible{outline:2px solid var(--ambar);outline-offset:4px;border-radius:4px}
+.solo-lectores{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.capitulos .como{margin:-12px 0 32px;font:400 16px/1.55 var(--texto);color:var(--crema-3)}
+
 @media (max-width:900px){
   :root{--margen:24px}
   .logo{top:calc(22px + env(safe-area-inset-top,0px));font-size:21px}
@@ -116,11 +142,18 @@ nav button[aria-current="step"]::before{display:block}
   .capitulos ol{grid-template-columns:1fr;gap:18px}
   .capitulos li b{font-size:28px;margin-bottom:8px}
 }
-@media (prefers-reduced-motion:reduce){ .parada{transition:none} .carga .luz{animation:none} }
+@media (prefers-reduced-motion:reduce){ .parada{transition:none} .carga .luz{animation:none} .grano,.pista::after,.desliza i::after{animation:none} }
+@media (max-width:900px){ .parada{bottom:calc(92px + env(safe-area-inset-bottom,0px))} .desliza{bottom:calc(30px + env(safe-area-inset-bottom,0px))} }
 </style>
 </head>
 <body>
-<canvas id="lienzo" aria-label="Habitación de noche que se recorre con el scroll: interruptor, escritorio, tele, teléfono, sillón y puerta"></canvas>
+<div class="escena" id="escena">
+  <canvas id="lienzo" aria-label="Habitación de noche que se recorre con el scroll: interruptor, escritorio, tele, teléfono, sillón y puerta"></canvas>
+  <canvas id="polvo" aria-hidden="true"></canvas>
+  <div id="pistas" aria-hidden="true"></div>
+</div>
+<div class="vineta" aria-hidden="true"></div>
+<div class="grano" id="grano" aria-hidden="true"></div>
 <div class="velo" aria-hidden="true"></div>
 
 <a class="logo" href="#" id="logo" aria-label="teskel, volver al inicio">
@@ -133,22 +166,36 @@ nav button[aria-current="step"]::before{display:block}
   <p class="rotulo" id="rotulo">Inicio</p>
   <h1 id="titulo">Que funcione, y bien.</h1>
   <div class="cuerpo">
-    <p class="lead" id="lead"></p>
+    <p class="lead" id="lead">Soluciones con inteligencia artificial: apps que hacen el trabajo pesado, reportes claros y webs a tu medida.</p>
     <div class="acciones" id="acciones"></div>
   </div>
 </section>
 
 <div class="barra" aria-hidden="true"><i id="avance"></i></div>
+<div class="desliza" id="desliza" aria-hidden="true"><i></i><span id="deslizaTxt">Scrolleá para recorrer</span></div>
+<button type="button" class="sonido" id="sonido" aria-pressed="false" aria-label="Activar sonido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor" stroke="none"/><path class="onda" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg><span>Sonido</span></button>
+
+<section class="solo-lectores" aria-label="Qué hace teskel">
+  <h2>Soluciones con inteligencia artificial para tu negocio</h2>
+  <p>teskel arma soluciones con inteligencia artificial para que tu negocio funcione, y bien.</p>
+  <h3>Apps que trabajan</h3><p>Una app que hace por vos las tareas aburridas o complejas: cargar datos, ordenar turnos, responder consultas, seguir pedidos.</p>
+  <h3>Reportes claros</h3><p>Reportes y dashboards que cuentan la historia y el presente de tu negocio, sin jerga.</p>
+  <h3>Tu web</h3><p>Una página que te haga sentir identificado y muestre tu negocio tal cual querés que se vea.</p>
+  <h3>Cómo arrancamos</h3><p>Charlamos, probás dos semanas sin cargo y, si te sirve, seguimos juntos.</p>
+  <h3>Contacto</h3><p>WhatsApp <a href="https://wa.me/5493412610641">+54 9 341 261-0641</a> · Email <a href="mailto:teskel.online@gmail.com">teskel.online@gmail.com</a> · Instagram <a href="https://www.instagram.com/teskel.online/">@teskel.online</a></p>
+</section>
+<noscript><p style="position:fixed;inset:auto 24px 24px;color:#F3ECE1;font:400 17px/1.5 system-ui">La habitación necesita JavaScript. Escribinos por WhatsApp al +54 9 341 261-0641 o a teskel.online@gmail.com.</p></noscript>
 
 <section class="capitulos" id="capitulos" hidden aria-labelledby="capTitulo">
-  <p class="rotulo">Serie · 3 capítulos</p>
-  <h2 id="capTitulo">Así trabajamos.</h2>
-  <p class="lead">Tres capítulos cortos sobre cómo ordenamos lo que no está funcionando.</p>
+  <p class="rotulo">Soluciones con IA · 3 capítulos</p>
+  <h2 id="capTitulo">Qué hacemos.</h2>
+  <p class="lead">Soluciones con inteligencia artificial para que tu negocio funcione, y bien.</p>
   <ol>
-    <li><b>1</b><span>Charlamos</span><small>Nos contás qué no está funcionando en tu negocio y vemos por dónde empezar.</small></li>
-    <li><b>2</b><span>Probás 2 semanas</span><small>Sin cargo y sin compromiso. Vos ves si te sirve.</small></li>
-    <li><b>3</b><span>Seguimos juntos</span><small>Si te sirve, seguimos. Si no, no pasa nada.</small></li>
+    <li><b>1</b><span>Apps que trabajan</span><small>Una app que hace por vos las tareas aburridas o complejas: cargar datos, ordenar turnos, responder consultas, seguir pedidos.</small></li>
+    <li><b>2</b><span>Reportes claros</span><small>Reportes y dashboards que cuentan la historia y el presente de tu negocio, sin jerga.</small></li>
+    <li><b>3</b><span>Tu web</span><small>Una página que te haga sentir identificado y muestre tu negocio tal cual querés que se vea.</small></li>
   </ol>
+  <p class="como">Cómo arrancamos: charlamos, probás dos semanas sin cargo y, si te sirve, seguimos juntos.</p>
   <div class="acciones"><button type="button" class="boton" id="capHablar">Quiero probar</button><button type="button" class="enlace" id="capCerrar">Volver a la habitación</button></div>
 </section>
 
@@ -160,42 +207,47 @@ nav button[aria-current="step"]::before{display:block}
 
 <script src="assets/hero/zonas.js"></script>
 <script src="assets/hero/indice.js"></script>
+<script src="assets/hero/movil/zonas.js" onerror="0"></script>
+<script src="assets/hero/movil/indice.js" onerror="0"></script>
 <script>
 /* ---------- datos ---------- */
 const WHATSAPP = "https://wa.me/5493412610641";
 const MAIL = "mailto:teskel.online@gmail.com";
 const sig = ()=> ir(Math.round(objetivo)+1);
 const PARADAS = [
-  { nombre:"Inicio",     rotulo:"Inicio",         titulo:"Que funcione, y *bien.*",    lead:"Todo empieza a oscuras. Prendé la luz.",
+  { nombre:"Inicio",     rotulo:"Inicio",         titulo:"Que funcione, y *bien.*",    lead:"Soluciones con inteligencia artificial: apps que hacen el trabajo pesado, reportes claros y webs a tu medida.",
     acciones:[["boton","Prender la luz",()=>{ resolver(0); }],["enlace","Seguir recorriendo",sig]] },
-  { nombre:"Escritorio", rotulo:"01 · Escritorio", titulo:"Los papeles, en orden.",    lead:"Facturas, turnos y planillas que se acumulan. Los ordenamos con vos.",
+  { nombre:"Escritorio", rotulo:"01 · Escritorio", titulo:"Los papeles, en orden.",    lead:"Apps que hacen por vos lo aburrido o complejo: facturas, turnos, planillas, seguimientos.",
     acciones:[["boton","Ordenar los papeles",()=>resolver(1)],["enlace","Seguir recorriendo",sig]] },
-  { nombre:"Tele",       rotulo:"02 · Tele",       titulo:"Así trabajamos.",           lead:"Una serie corta en tres capítulos: charlamos, probás dos semanas y seguimos juntos.", costado:true,
+  { nombre:"Tele",       rotulo:"02 · Tele",       titulo:"Qué hacemos.",              lead:"Tres capítulos: apps que trabajan, reportes que cuentan tu negocio y una web que se parezca a vos.", costado:true,
     acciones:[["boton","Ver los capítulos",()=>abrirCapitulos()]] },
-  { nombre:"Teléfono",   rotulo:"03 · Teléfono",   titulo:"Nadie queda sin *respuesta.*", lead:"Consultas y mensajes contestados, sin que tengas que estar pendiente.",
+  { nombre:"Teléfono",   rotulo:"03 · Teléfono",   titulo:"Nadie queda sin *respuesta.*", lead:"Escribinos por WhatsApp y charlamos qué necesita tu negocio.",
     acciones:[["boton","Escribinos por WhatsApp",WHATSAPP],["enlace","Seguir recorriendo",sig]] },
   { nombre:"Sillón",     rotulo:"04 · Sillón",     titulo:"Tiempo para *vos.*",        lead:"Cuando todo funciona, el sillón vuelve a ser tuyo.",
     acciones:[["boton","Hablemos",()=>ir(5)],["enlace","Seguir recorriendo",sig]] },
-  { nombre:"Puerta",     rotulo:"05 · Puerta",     titulo:"Hablemos.",                 lead:"Contanos qué no está funcionando y vemos cómo resolverlo.",
+  { nombre:"Puerta",     rotulo:"05 · Puerta",     titulo:"Hablemos.",                 lead:"Contanos qué no está funcionando. Probás dos semanas sin cargo y, si te sirve, seguimos juntos.",
     acciones:[["boton","Escribinos por WhatsApp",WHATSAPP],["enlace","teskel.online@gmail.com",MAIL]] }
 ];
 const N = PARADAS.length - 1;
-const ZONAS = window.ZONAS || {};
-const IDX = window.INDICE;            // { porTramo, bloque, archivos:{ "t0_b0": [desde, hasta, ...] } }
+const MOVIL = innerHeight > innerWidth && !!window.INDICE_MOVIL;   // pantallas verticales usan el render vertical
+const BASE = MOVIL ? "assets/hero/movil/" : "assets/hero/";
+const ZONAS = (MOVIL ? window.ZONAS_MOVIL : window.ZONAS) || {};
+const IDX = MOVIL ? window.INDICE_MOVIL : window.INDICE;
+const TIPO = IDX.tipo || "image/jpeg";            // { porTramo, bloque, archivos:{ "t0_b0": [desde, hasta, ...] } }
 const POR_TRAMO = IDX.porTramo;      // último índice de cada tramo (237 cuadros: 0..236)
 const BLOQUE = IDX.bloque;
 
 /* ---------- carga: cada tramo viene en bloques (JPEG pegados) ---------- */
 const lienzo = document.getElementById("lienzo"), ctx = lienzo.getContext("2d", { alpha:false });
-const RW = 1600, RH = 900;
+const RW = MOVIL ? 720 : 1600, RH = MOVIL ? 1280 : 900;
 const blobs = new Map(), bitmaps = new Map(), pedidos = new Map();
 const clave = (g)=> g.parada!==undefined ? `p${g.parada}_${g.estado}` : `t${g.tramo}_${g.i}`;
 async function bajarBloque(t, b){
   const nombre = `t${t}_b${b}`; if(pedidos.has(nombre)) return pedidos.get(nombre);
   const pr = (async()=>{ try{
-    const buf = await fetch(`assets/hero/tramos/${nombre}.jpg`).then(r=>{ if(!r.ok) throw 0; return r.arrayBuffer(); });
+    const buf = await fetch(`${BASE}tramos/${nombre}.${IDX.ext||"jpg"}`).then(r=>{ if(!r.ok) throw 0; return r.arrayBuffer(); });
     const off = IDX.archivos[nombre];
-    for(let j=0;j<off.length-1;j++) blobs.set(`t${t}_${b*BLOQUE+j}`, new Blob([buf.slice(off[j],off[j+1])],{type:"image/jpeg"}));
+    for(let j=0;j<off.length-1;j++) blobs.set(`t${t}_${b*BLOQUE+j}`, new Blob([buf.slice(off[j],off[j+1])],{type:TIPO}));
     pedirDibujo = true;
   }catch{ pedidos.delete(nombre); } })();
   pedidos.set(nombre, pr); return pr;
@@ -203,7 +255,7 @@ async function bajarBloque(t, b){
 async function bajar(g){
   const k = clave(g); if(blobs.has(k)) return;
   if(g.parada!==undefined){ if(pedidos.has(k)) return pedidos.get(k);
-    const pr = fetch(`assets/hero/paradas/p${g.parada}_${g.estado}.jpg`).then(r=>r.blob()).then(b=>{ blobs.set(k,b); }).catch(()=>pedidos.delete(k));
+    const pr = fetch(`${BASE}paradas/p${g.parada}_${g.estado}.${IDX.ext||"jpg"}`).then(r=>r.blob()).then(b=>{ blobs.set(k,b); }).catch(()=>pedidos.delete(k));
     pedidos.set(k,pr); return pr; }
   return bajarBloque(g.tramo, Math.floor(g.i/BLOQUE));
 }
@@ -251,12 +303,15 @@ function resolver(k){
   requestAnimationFrame(paso);
 }
 /* ---------- clips: los papeles se ordenan (parada 1) y la puerta se abre o se cierra (parada 5) ---------- */
-const CLIPS = { 0:{ nombre:"luz", pos:0, meta:0, fps:40 }, 1:{ nombre:"papeles", pos:0, meta:0, fps:24 }, 5:{ nombre:"puerta", pos:0, meta:0, fps:24 } };
+const CLIPS = { 0:{ nombre:"luz", pos:0, meta:0, fps:40 }, 1:{ nombre:"papeles", pos:0, meta:0, fps:24 },
+  3:{ nombre:"telefono", pos:0, meta:0, fps:24, vuelve:true }, 4:{ nombre:"planta", pos:0, meta:0, fps:24, vuelve:true },
+  5:{ nombre:"puerta", pos:0, meta:0, fps:24 } };
+for(const k of Object.keys(CLIPS)) if(!IDX.archivos[CLIPS[k].nombre]) delete CLIPS[k];   // clip que no está en este set
 function bajarClip(c){
   if(c.cargado) return c.cargado;
-  c.cargado = (async()=>{ const buf = await fetch(`assets/hero/clips/${c.nombre}.jpg`).then(r=>{ if(!r.ok) throw 0; return r.arrayBuffer(); });
+  c.cargado = (async()=>{ const buf = await fetch(`${BASE}clips/${c.nombre}.${IDX.ext||"jpg"}`).then(r=>{ if(!r.ok) throw 0; return r.arrayBuffer(); });
     const off = IDX.archivos[c.nombre]; c.blobs = [];
-    for(let j=0;j<off.length-1;j++) c.blobs.push(new Blob([buf.slice(off[j],off[j+1])],{type:"image/jpeg"}));
+    for(let j=0;j<off.length-1;j++) c.blobs.push(new Blob([buf.slice(off[j],off[j+1])],{type:TIPO}));
     c.n = c.blobs.length-1; c.bm = new Map(); c.dec = new Set(); pedirDibujo = true; })().catch(()=>{ c.cargado = null; });
   return c.cargado;
 }
@@ -264,7 +319,7 @@ async function clipBitmap(c,i){
   if(!c.blobs || i<0 || i>c.n || c.bm.has(i) || c.dec.has(i)) return; c.dec.add(i);
   try{ c.bm.set(i, await createImageBitmap(c.blobs[i])); pedirDibujo = true; }catch{} c.dec.delete(i);
 }
-function mover(k, abierto){ const c = CLIPS[k]; c.meta = abierto ? 1 : 0; if(reducir) c.pos = c.meta; bajarClip(c); pedirDibujo = true; }
+function mover(k, abierto){ const c = CLIPS[k]; if(!c) return; c.meta = abierto ? 1 : 0; sonar(k, abierto); if(reducir) c.pos = c.meta; bajarClip(c); pedirDibujo = true; }
 function dibujarClip(c, k, dt){
   const A=bitmaps.get(`p${k}_antes`), B=bitmaps.get(`p${k}_despues`);
   if(!A) decodificar({parada:k,estado:"antes"}); if(!B) decodificar({parada:k,estado:"despues"});
@@ -273,7 +328,7 @@ function dibujarClip(c, k, dt){
     const dir = Math.sign(c.meta - c.pos), i = Math.round(c.pos*c.n);
     for(let d=0; d<12; d++) clipBitmap(c, i+dir*d);
     const prox = Math.min(1, Math.max(0, c.pos + dir*dt*c.fps/c.n));
-    if(c.bm.has(Math.round(prox*c.n))){ c.pos = prox; if((dir>0 && c.pos>=c.meta) || (dir<0 && c.pos<=c.meta)) c.pos = c.meta; }
+    if(c.bm.has(Math.round(prox*c.n))){ c.pos = prox; if((dir>0 && c.pos>=c.meta) || (dir<0 && c.pos<=c.meta)){ c.pos = c.meta; if(c.vuelve && c.meta===1){ c.pos = 0; c.meta = 0; } } }
     bm = c.bm.get(Math.round(c.pos*c.n)) || c.bm.get(i);
     for(const [j,b] of c.bm) if(Math.abs(j-i)>14){ b.close&&b.close(); c.bm.delete(j); }
     pedirDibujo = true;
@@ -284,10 +339,10 @@ function dibujarClip(c, k, dt){
 }
 let bloqueo = 0; // después de cerrar la puerta con el scroll, ese gesto no sigue para atrás
 function cerrarPuertaPrimero(haciaAtras){
-  if(haciaAtras && quieto && Math.round(actual)===5 && CLIPS[5].meta===1){ mover(5,false); bloqueo = performance.now()+700; return true; }
+  if(haciaAtras && quieto && Math.round(actual)===5 && CLIPS[5] && CLIPS[5].meta===1){ mover(5,false); bloqueo = performance.now()+700; return true; }
   return performance.now() < bloqueo;
 }
-function ir(k){ cerrarCapitulos(); objetivo = Math.max(0, Math.min(N, k)); if(objetivo>0) resolver(0); }
+function ir(k){ cerrarCapitulos(); ocultarDesliza(); objetivo = Math.max(0, Math.min(N, k)); if(objetivo>0) resolver(0); }
 document.getElementById("logo").addEventListener("click",(e)=>{ e.preventDefault(); ir(0); });
 
 /* ---------- textos y menú ---------- */
@@ -330,7 +385,7 @@ function asentar(){
 addEventListener("wheel",(e)=>{ if(!capitulos.hidden) return; e.preventDefault();
   if(cerrarPuertaPrimero(e.deltaY<0)){ clearTimeout(timer); return; }
   if(inicioGesto===null) inicioGesto = Math.round(objetivo);
-  objetivo = Math.max(0, Math.min(N, objetivo + e.deltaY*0.0011)); if(objetivo>0.05) resolver(0);
+  objetivo = Math.max(0, Math.min(N, objetivo + e.deltaY*0.0011)); if(objetivo>0.05) resolver(0); ocultarDesliza();
   clearTimeout(timer); timer = setTimeout(asentar, 220); },{ passive:false });
 let yT=null;
 lienzo.addEventListener("touchstart",(e)=>{ yT=e.touches[0].clientY; clearTimeout(timer); if(inicioGesto===null) inicioGesto=Math.round(objetivo); },{ passive:true });
@@ -349,10 +404,125 @@ function aCuadro(e){ const r=lienzo.getBoundingClientRect(), s=lienzo.width/r.wi
 function zonaEn(e){ if(!quieto) return null; const k=Math.round(actual), {u,v}=aCuadro(e); return (ZONAS[k]||[]).find(z=>u>=z.x0&&u<=z.x1&&v>=z.y0&&v<=z.y1) || null; }
 const etiqueta=document.getElementById("etiqueta");
 lienzo.addEventListener("pointermove",(e)=>{ if(e.pointerType!=="mouse") return; const z=zonaEn(e); lienzo.style.cursor=z?"pointer":"default";
-  if(z){ etiqueta.textContent = z.accion==="puerta" ? (CLIPS[5].meta ? "Cerrar la puerta" : "Abrir la puerta") : z.nombre; etiqueta.style.left=e.clientX+"px"; etiqueta.style.top=e.clientY+"px"; etiqueta.classList.add("ver"); } else etiqueta.classList.remove("ver"); });
+  if(z){ etiqueta.textContent = z.accion==="puerta" ? (CLIPS[5] && CLIPS[5].meta ? "Cerrar la puerta" : "Abrir la puerta") : z.nombre; etiqueta.style.left=e.clientX+"px"; etiqueta.style.top=e.clientY+"px"; etiqueta.classList.add("ver"); } else etiqueta.classList.remove("ver"); });
 lienzo.addEventListener("click",(e)=>{ const z=zonaEn(e); if(!z) return; const k=Math.round(actual);
-  if(z.accion==="puerta"){ mover(5, CLIPS[5].meta<0.5); return; }
-  if(z.accion==="tele") abrirCapitulos(); else if(z.accion==="whatsapp"){ resolver(k); window.open(WHATSAPP,"_blank","noopener"); } else resolver(k); });
+  ocultarPistas(true);
+  if(z.accion==="puerta"){ mover(5, !CLIPS[5] || CLIPS[5].meta<0.5); return; }
+  if(z.accion==="planta"){ mover(4, true); return; }
+  if(z.accion==="tele") abrirCapitulos(); else if(z.accion==="whatsapp"){ window.open(WHATSAPP,"_blank","noopener"); } else resolver(k); });
+
+/* ---------- capas: pistas, celular vivo, polvo, mouse, grano, sonido ---------- */
+let paradaQuieta = -1, quietoDesde = 0, tocoAlgo = false;
+const escena = document.getElementById("escena"), pistas = document.getElementById("pistas");
+const aPantalla = (u,v)=>{ const r = lienzo.width/innerWidth; return [(caja.x+u*caja.w)/r, (caja.y+v*caja.h)/r]; };
+function zonasConPista(k){ return (ZONAS[k]||[]).filter(z => !((k===0 && CLIPS[0] && CLIPS[0].meta) || (k===1 && CLIPS[1] && CLIPS[1].meta))); }
+function ocultarPistas(tocado){ if(tocado) tocoAlgo = true; [...pistas.children].forEach(p=>p.classList.remove("ver")); }
+function ubicarPistas(k){
+  const zs = zonasConPista(k);
+  while(pistas.children.length < zs.length){ const d=document.createElement("i"); d.className="pista"; pistas.appendChild(d); }
+  [...pistas.children].forEach((d,i)=>{ const z=zs[i]; if(!z){ d.classList.remove("ver"); return; }
+    const [x,y] = aPantalla((z.x0+z.x1)/2, (z.y0+z.y1)/2); d.style.left=x+"px"; d.style.top=y+"px"; d.classList.add("ver"); });
+}
+function llegar(k){ quietoDesde = performance.now(); tocoAlgo = false; if(k>0) ocultarDesliza();
+  if(k===3 && CLIPS[3]) setTimeout(()=>{ if(paradaQuieta===3) mover(3,true); }, 350);
+  if(k===3) iniciarChat(); }
+function salir(){ ocultarPistas(); }
+
+/* el chat de WhatsApp sobre la pantalla del celular: se dibuja en un canvas chico y se pega sobre la pantalla */
+const TEL = MOVIL ? [[0.4915,0.5188],[0.5487,0.5255],[0.5092,0.5708],[0.4483,0.5631]] : [[0.4963,0.5257],[0.5211,0.5348],[0.504,0.5968],[0.4776,0.5862]]; // arriba-izq, arriba-der, abajo-der, abajo-izq
+const CHARLA = [["Hola! Se puede automatizar la carga de turnos?",0],["Sí. Contanos cómo lo hacés hoy y lo vemos.",1],["Uso una planilla y WhatsApp",0],["Perfecto, arrancamos por ahí. Probás 2 semanas sin cargo.",1]];
+const chatC = document.createElement("canvas"); chatC.width=300; chatC.height=560; const cctx = chatC.getContext("2d");
+let chatMsgs = [], chatEscribe = false, chatTimer = null, chatAlfa = 0;
+function envolver(txt, ancho){ const pal=txt.split(" "), ls=[]; let l=""; for(const w of pal){ const t=l?l+" "+w:w; if(cctx.measureText(t).width>ancho && l){ ls.push(l); l=w; } else l=t; } if(l) ls.push(l); return ls; }
+function pintarChat(){
+  const c=cctx; c.clearRect(0,0,300,560); c.fillStyle="#0B141A"; c.beginPath(); c.roundRect(0,0,300,560,18); c.fill();
+  c.fillStyle="#1F2C33"; c.fillRect(0,0,300,64); c.fillStyle="#E9EDEF"; c.font="600 22px 'Red Hat Text', sans-serif"; c.fillText("teskel",62,40);
+  c.fillStyle="#FFB547"; c.beginPath(); c.roundRect(24,20,22,26,6); c.fill();
+  c.font="500 19px 'Red Hat Text', sans-serif"; let y=500;
+  if(chatEscribe){ c.fillStyle="#8696A0"; c.fillText("escribiendo…",16,532); }
+  for(let i=chatMsgs.length-1;i>=0 && y>80;i--){ const [txt,yo]=chatMsgs[i]; const ls=envolver(txt,200), h=ls.length*24+18, w=Math.max(...ls.map(l=>c.measureText(l).width))+28;
+    y-=h; const x= yo ? 300-14-w : 14; c.fillStyle= yo ? "#005C4B" : "#202C33"; c.beginPath(); c.roundRect(x,y,w,h,14); c.fill();
+    c.fillStyle="#E9EDEF"; ls.forEach((l,k)=>c.fillText(l,x+14,y+30+k*24)); y-=10; }
+}
+function iniciarChat(){ clearTimeout(chatTimer); chatMsgs=[]; chatEscribe=false; pintarChat(); let i=0;
+  const sigue=()=>{ if(paradaQuieta!==3) return; if(i>=CHARLA.length){ chatTimer=setTimeout(iniciarChat,3500); return; }
+    const m=CHARLA[i++]; chatEscribe=!!m[1]; pintarChat();
+    chatTimer=setTimeout(()=>{ chatMsgs.push(m); chatEscribe=false; pintarChat(); chatTimer=setTimeout(sigue,1300); }, m[1]?900:500); };
+  chatTimer=setTimeout(sigue,900); }
+function dibujarChat(ver, dt){
+  chatAlfa += ((ver?1:0)-chatAlfa)*Math.min(1,dt*5); if(chatAlfa<0.01) return;
+  const r=lienzo.width/innerWidth, P=TEL.map(([u,v])=>aPantalla(u,v).map(n=>n*r)); const [[x0,y0],[x1,y1],,[x3,y3]]=P;
+  pctx.save(); pctx.globalAlpha=chatAlfa; pctx.setTransform((x1-x0)/300,(y1-y0)/300,(x3-x0)/560,(y3-y0)/560,x0,y0); pctx.drawImage(chatC,0,0); pctx.restore();
+}
+
+/* polvo: partículas que brillan donde hay luz en la escena */
+const polvo = document.getElementById("polvo"), pctx = polvo.getContext("2d");
+const muestra = document.createElement("canvas"); muestra.width=48; muestra.height=27; const mctx = muestra.getContext("2d",{willReadFrequently:true});
+let luzMapa = null, polvoAlfa = 0;
+const motas = Array.from({length: MOVIL ? 40 : 70}, ()=>({ x:Math.random(), y:Math.random(), r:0.6+Math.random()*1.6, vx:(Math.random()-.5)*0.006, vy:-0.004-Math.random()*0.008, f:Math.random()*6.28 }));
+function leerLuz(){ try{ mctx.drawImage(lienzo,0,0,48,27); const d=mctx.getImageData(0,0,48,27).data; luzMapa=new Float32Array(48*27);
+  for(let i=0;i<luzMapa.length;i++) luzMapa[i]=(0.2126*d[i*4]+0.7152*d[i*4+1]+0.0722*d[i*4+2])/255; }catch{ luzMapa=null; } }
+function dibujarPolvo(dt, activo){
+  if(polvo.width!==lienzo.width){ polvo.width=lienzo.width; polvo.height=lienzo.height; }
+  polvoAlfa += ((activo?1:0)-polvoAlfa)*Math.min(1,dt*2);
+  pctx.setTransform(1,0,0,1,0,0); pctx.clearRect(0,0,polvo.width,polvo.height); if(polvoAlfa<0.01 || !luzMapa) return;
+  const W=polvo.width, H=polvo.height;
+  for(const m of motas){ m.x+=m.vx*dt; m.y+=m.vy*dt; m.f+=dt; if(m.y<-0.02){ m.y=1.02; m.x=Math.random(); } if(m.x<0) m.x+=1; if(m.x>1) m.x-=1;
+    const l = luzMapa[Math.min(26,Math.max(0,(m.y*27)|0))*48 + Math.min(47,Math.max(0,(m.x*48)|0))];
+    const a = polvoAlfa * Math.max(0,l-0.18)*1.6 * (0.6+0.4*Math.sin(m.f*1.7));
+    if(a<0.02) continue; pctx.fillStyle=`rgba(255,226,180,${Math.min(0.55,a)})`; pctx.beginPath(); pctx.arc(m.x*W, m.y*H, m.r*W/1600*1.4, 0, 6.283); pctx.fill(); }
+}
+
+/* el mouse mueve apenas la escena */
+const mouseFino = matchMedia("(pointer:fine)").matches && !reducir;
+let mx=0, my=0, px=0, py=0;
+if(mouseFino) addEventListener("pointermove",(e)=>{ mx=e.clientX/innerWidth*2-1; my=e.clientY/innerHeight*2-1; });
+
+function extras(t, dt, k){
+  if(mouseFino){ px+=(mx-px)*Math.min(1,dt*3); py+=(my-py)*Math.min(1,dt*3); escena.style.transform=`translate3d(${(-px*10).toFixed(2)}px,${(-py*6).toFixed(2)}px,0) scale(1.03)`; }
+  const clipCorre = CLIPS[k] && CLIPS[k].pos!==CLIPS[k].meta;
+  if(quieto && !clipCorre && !luzMapa) leerLuz();
+  if(!quieto || clipCorre) luzMapa = null;
+  dibujarPolvo(dt, quieto && !clipCorre && (CLIPS[0] ? CLIPS[0].meta===1 : resuelta[0]));
+  if(quieto && !tocoAlgo && !clipCorre && performance.now()-quietoDesde > 1200 && capitulos.hidden) ubicarPistas(k); else if(!quieto || clipCorre) ocultarPistas();
+  dibujarChat(quieto && k===3 && !(CLIPS[3] && CLIPS[3].pos!==CLIPS[3].meta), dt);
+}
+
+/* "scrolleá para recorrer" al entrar */
+const desliza = document.getElementById("desliza");
+if(matchMedia("(pointer:coarse)").matches) document.getElementById("deslizaTxt").textContent = "Deslizá para recorrer";
+function ocultarDesliza(){ desliza.classList.add("fuera"); }
+
+/* grano de película */
+(()=>{ const c=document.createElement("canvas"); c.width=c.height=160; const g=c.getContext("2d"), im=g.createImageData(160,160);
+  for(let i=0;i<im.data.length;i+=4){ const v=Math.random()*255; im.data[i]=im.data[i+1]=im.data[i+2]=v; im.data[i+3]=255; }
+  g.putImageData(im,0,0); document.getElementById("grano").style.backgroundImage=`url(${c.toDataURL()})`; })();
+
+/* sonido opcional: todo sintetizado, nada se descarga */
+let audio=null, ambiente=null; const botonSonido=document.getElementById("sonido");
+function ruido(seg){ const b=audio.createBuffer(1, audio.sampleRate*seg, audio.sampleRate), d=b.getChannelData(0); let u=0; for(let i=0;i<d.length;i++){ const w=Math.random()*2-1; u=(u+0.02*w)/1.02; d[i]=u*3.5; } return b; }
+function blanco(seg){ const b=audio.createBuffer(1, audio.sampleRate*seg, audio.sampleRate), d=b.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1; return b; }
+function golpe({dur=0.08, frec=2000, q=1, vol=0.3, tipo="bandpass", ruidoso=true, osc=null}={}){
+  if(!audio || botonSonido.getAttribute("aria-pressed")!=="true") return; const t=audio.currentTime, g=audio.createGain();
+  g.gain.setValueAtTime(vol,t); g.gain.exponentialRampToValueAtTime(0.0001,t+dur); g.connect(audio.destination);
+  if(ruidoso){ const s=audio.createBufferSource(); s.buffer=blanco(dur); const f=audio.createBiquadFilter(); f.type=tipo; f.frequency.value=frec; f.Q.value=q; s.connect(f).connect(g); s.start(t); }
+  if(osc){ const o=audio.createOscillator(); o.type=osc.tipo||"sine"; o.frequency.setValueAtTime(osc.de,t); o.frequency.exponentialRampToValueAtTime(osc.a||osc.de,t+dur); o.connect(g); o.start(t); o.stop(t+dur); }
+}
+function sonar(k, abierto){
+  if(k===0 && abierto){ golpe({dur:0.05,frec:3000,q:2,vol:0.35}); setTimeout(()=>golpe({dur:0.12,vol:0.12,ruidoso:false,osc:{de:120,a:60}}),40); }
+  if(k===1 && abierto) for(let i=0;i<6;i++) setTimeout(()=>golpe({dur:0.18,frec:2600+Math.random()*1500,q:0.8,vol:0.07}), i*150);
+  if(k===3){ for(const d of [80,500]) setTimeout(()=>golpe({dur:0.32,vol:0.06,ruidoso:false,osc:{tipo:"square",de:150}}), d); }
+  if(k===4) for(let i=0;i<4;i++) setTimeout(()=>golpe({dur:0.3,frec:5000,tipo:"highpass",vol:0.035}), i*180);
+  if(k===5) golpe({dur:1.4,vol:0.05,ruidoso:false,osc:{tipo:"sawtooth",de:85,a:55}});
+}
+botonSonido.addEventListener("click", async()=>{
+  const on = botonSonido.getAttribute("aria-pressed")!=="true";
+  botonSonido.setAttribute("aria-pressed", on); botonSonido.setAttribute("aria-label", on?"Desactivar sonido":"Activar sonido");
+  if(on && !audio){ audio = new (window.AudioContext||window.webkitAudioContext)();
+    const s=audio.createBufferSource(); s.buffer=ruido(6); s.loop=true; const f=audio.createBiquadFilter(); f.type="lowpass"; f.frequency.value=420;
+    ambiente=audio.createGain(); ambiente.gain.value=0; s.connect(f).connect(ambiente).connect(audio.destination); s.start(); }
+  if(audio){ await audio.resume(); ambiente.gain.setTargetAtTime(on?0.05:0, audio.currentTime, 0.4); }
+});
 
 /* ---------- loop ---------- */
 const K = 30, C = 2*Math.sqrt(K), MIN = 60/POR_TRAMO;
@@ -367,7 +537,9 @@ function cuadro(t){
   quieto = Math.abs(actual-Math.round(actual))<1e-4 && vel===0;
   precargar(actual);
   const k = Math.round(actual);
-  if(quieto && k===0 && (CLIPS[1].meta || CLIPS[1].pos)){ CLIPS[1].meta = 0; CLIPS[1].pos = 0; resuelta[1] = false; }
+  if(quieto && k!==paradaQuieta){ paradaQuieta = k; llegar(k); } else if(!quieto && paradaQuieta!==-1){ paradaQuieta = -1; salir(); }
+  extras(t, dt, k);
+  if(quieto && k===0 && CLIPS[1] && (CLIPS[1].meta || CLIPS[1].pos)){ CLIPS[1].meta = 0; CLIPS[1].pos = 0; resuelta[1] = false; }
   if(quieto && CLIPS[k]){ dibujarClip(CLIPS[k], k, dt); llegada.k = k; }
   else if(quieto){
     const A=bitmaps.get(`p${k}_antes`), B=bitmaps.get(`p${k}_despues`);
@@ -392,7 +564,7 @@ function cuadro(t){
   medir(); document.getElementById("carga").classList.add("fuera"); requestAnimationFrame(cuadro);
   bajarClip(CLIPS[0]).then(()=>{ for(let i=0;i<=8;i++) clipBitmap(CLIPS[0], i); });
   for(let k=1;k<=N;k++){ await bajar({parada:k,estado:"antes"}); await bajar({parada:k,estado:"despues"}); }
-  await bajarClip(CLIPS[1]); await bajarClip(CLIPS[5]);
+  for(const k of [1,3,5,4]) if(CLIPS[k]) await bajarClip(CLIPS[k]);
 })();
 </script>
 </body>
