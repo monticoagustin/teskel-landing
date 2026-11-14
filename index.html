@@ -123,8 +123,8 @@ body.modal .parada, body.modal .desliza, body.modal .barra{opacity:0;pointer-eve
 .pista::after{inset:8px;background:none;border:1.5px solid rgba(255,181,71,.7);box-shadow:none;animation:late 1.8s ease-out infinite}
 @keyframes late{0%{transform:scale(.6);opacity:1}100%{transform:scale(1.6);opacity:0}}
 .vineta{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,transparent 55%,rgba(8,6,4,.55) 100%)}
-.grano{position:fixed;inset:0;pointer-events:none;opacity:.045;animation:grano .7s steps(1) infinite}
-@keyframes grano{0%{background-position:0 0}17%{background-position:-37px 51px}33%{background-position:63px -22px}50%{background-position:-81px -67px}67%{background-position:29px 88px}83%{background-position:94px 13px}}
+.grano{position:fixed;inset:0;pointer-events:none;opacity:.045}
+@media (pointer:coarse){ .grano{display:none} }
 .desliza{position:fixed;left:50%;bottom:calc(26px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;font:500 13px/1 var(--texto);letter-spacing:.14em;text-transform:uppercase;color:var(--crema-2);pointer-events:none;transition:opacity .6s}
 .desliza.fuera{opacity:0}
 .desliza i{width:22px;height:34px;border:1.5px solid rgba(243,236,225,.7);border-radius:11px;position:relative}
@@ -276,9 +276,11 @@ async function bajar(g){
   return bajarBloque(g.tramo, Math.floor(g.i/BLOQUE));
 }
 const decodificando = new Set();
-async function decodificar(g){
+const TACTIL = matchMedia("(pointer:coarse)").matches;
+const MAX_DECOD = TACTIL ? 2 : 3;          // decodificar de a pocos: si se piden 30 juntos, el cuadro actual espera a todos
+async function decodificar(g, esperar=true){
   const k = clave(g); if(bitmaps.has(k) || decodificando.has(k)) return;
-  if(!blobs.has(k)){ await bajar(g); if(!blobs.has(k)) return; }
+  if(!blobs.has(k)){ if(!esperar) return; await bajar(g); if(!blobs.has(k)) return; }
   decodificando.add(k);
   try { bitmaps.set(k, await createImageBitmap(blobs.get(k))); pedirDibujo = true; } catch {}
   decodificando.delete(k);
@@ -291,15 +293,22 @@ function precargar(pos){
     (async()=>{ const orden=[c.tramo, c.tramo+1, c.tramo-1].filter(x=>x>=0 && x<N);
       for(const tt of orden){ const nb=Math.ceil((POR_TRAMO+1)/BLOQUE); const desde=tt===c.tramo?Math.floor(c.i/BLOQUE):0;
         for(let s=0;s<nb;s++){ await bajarBloque(tt,(desde+s)%nb); } } })(); }
-  for(let d=-16; d<=16; d++){ let tt=c.tramo, i=c.i+d; if(i<0 && tt>0){ tt--; i+=POR_TRAMO; } if(i>POR_TRAMO && tt<N-1){ tt++; i-=POR_TRAMO; } if(i>=0 && i<=POR_TRAMO) decodificar({tramo:tt,i}); }
-  for(const [k,bm] of bitmaps){ const m=k.match(/^t(\d)_(\d+)$/); if(!m) continue;
-    if(Math.abs((+m[1]*POR_TRAMO + +m[2]) - (c.tramo*POR_TRAMO + c.i)) > 48){ bm.close&&bm.close(); bitmaps.delete(k); } }
+  // los cuadros que vienen, en el orden en que se van a necesitar: primero hacia donde va la cámara
+  const dir = vel < -0.01 ? -1 : 1, adelante = TACTIL ? 10 : 14, atras = 4;
+  const orden = [0]; for(let d=1; d<=adelante; d++){ orden.push(d*dir); if(d<=atras) orden.push(-d*dir); }
+  for(const d of orden){ if(decodificando.size >= MAX_DECOD) break;
+    let tt=c.tramo, i=c.i+d; if(i<0 && tt>0){ tt--; i+=POR_TRAMO; } if(i>POR_TRAMO && tt<N-1){ tt++; i-=POR_TRAMO; }
+    if(i>=0 && i<=POR_TRAMO) decodificar({tramo:tt,i}, false); }
+  // soltar lo que quedó lejos: cada cuadro decodificado ocupa varios MB de memoria
+  const aqui = c.tramo*POR_TRAMO + c.i, lejos = TACTIL ? 16 : 22;
+  for(const [k,bm] of bitmaps){ if(k[0]!=="t") continue; const u=k.indexOf("_");
+    if(Math.abs((+k.slice(1,u))*POR_TRAMO + (+k.slice(u+1)) - aqui) > lejos){ bm.close&&bm.close(); bitmaps.delete(k); } }
 }
 
 /* ---------- dibujo ---------- */
 let caja = { x:0, y:0, w:0, h:0 }, pedirDibujo = true;
 function medir(){
-  const r = Math.min(devicePixelRatio, 1.5);
+  const r = Math.min(devicePixelRatio, TACTIL ? 1.25 : 1.5);
   lienzo.width = Math.round(innerWidth*r); lienzo.height = Math.round(innerHeight*r);
   const s = Math.max(lienzo.width/RW, lienzo.height/RH);
   caja = { w:RW*s, h:RH*s }; caja.x=(lienzo.width-caja.w)/2; caja.y=(lienzo.height-caja.h)/2; pedirDibujo = true;
@@ -425,7 +434,7 @@ lienzo.addEventListener("click",(e)=>{ const z=zonaEn(e); if(!z) return; const k
   if(z.accion==="tele") abrirCapitulos(); else if(z.accion==="whatsapp"){ abrirCelular(); } else resolver(k); });
 
 /* ---------- capas: pistas, celular vivo, polvo, mouse, grano ---------- */
-let paradaQuieta = -1, quietoDesde = 0, tocoAlgo = false;
+let paradaQuieta = -1, quietoDesde = 0, tocoAlgo = false, ultimoTr = "";
 const escena = document.getElementById("escena"), pistas = document.getElementById("pistas");
 const aPantalla = (u,v)=>{ const r = lienzo.width/innerWidth; return [(caja.x+u*caja.w)/r, (caja.y+v*caja.h)/r]; };
 function zonasConPista(k){ return k===0 ? [] : (ZONAS[k]||[]).filter(z => !(k===1 && CLIPS[1] && CLIPS[1].meta)); }
@@ -476,7 +485,7 @@ function iniciarChat(){ clearTimeout(chatTimer); chatMsgs=[]; chatEscribe=false;
   chatTimer=setTimeout(sigue,900); }
 function dibujarChat(ver, dt){
   chatAlfa = ver ? chatAlfa + (1-chatAlfa)*Math.min(1,dt*5) : 0; if(chatAlfa<0.01) return;
-  const r=lienzo.width/innerWidth, P=TEL.map(([u,v])=>aPantalla(u,v).map(n=>n*r)); const [[x0,y0],[x1,y1],,[x3,y3]]=P;
+  polvoSucio = true; const r=lienzo.width/innerWidth, P=TEL.map(([u,v])=>aPantalla(u,v).map(n=>n*r)); const [[x0,y0],[x1,y1],,[x3,y3]]=P;
   pctx.save(); pctx.globalAlpha=chatAlfa; pctx.setTransform((x1-x0)/300,(y1-y0)/300,(x3-x0)/560,(y3-y0)/560,x0,y0); pctx.drawImage(chatC,0,0); pctx.restore();
 }
 
@@ -487,10 +496,13 @@ let luzMapa = null, polvoAlfa = 0;
 const motas = Array.from({length: MOVIL ? 40 : 70}, ()=>({ x:Math.random(), y:Math.random(), r:0.6+Math.random()*1.6, vx:(Math.random()-.5)*0.006, vy:-0.004-Math.random()*0.008, f:Math.random()*6.28 }));
 function leerLuz(){ try{ mctx.drawImage(lienzo,0,0,48,27); const d=mctx.getImageData(0,0,48,27).data; luzMapa=new Float32Array(48*27);
   for(let i=0;i<luzMapa.length;i++) luzMapa[i]=(0.2126*d[i*4]+0.7152*d[i*4+1]+0.0722*d[i*4+2])/255; }catch{ luzMapa=null; } }
+let polvoSucio = false;
 function dibujarPolvo(dt, activo){
   if(polvo.width!==lienzo.width){ polvo.width=lienzo.width; polvo.height=lienzo.height; }
+  if(TACTIL) activo = false;   // en celulares no: cuesta más de lo que suma
   polvoAlfa += ((activo?1:0)-polvoAlfa)*Math.min(1,dt*2);
-  pctx.setTransform(1,0,0,1,0,0); pctx.clearRect(0,0,polvo.width,polvo.height); if(polvoAlfa<0.01 || !luzMapa) return;
+  if(polvoSucio){ pctx.setTransform(1,0,0,1,0,0); pctx.clearRect(0,0,polvo.width,polvo.height); polvoSucio = false; }
+  if(polvoAlfa<0.01 || !luzMapa) return; polvoSucio = true;
   const W=polvo.width, H=polvo.height;
   for(const m of motas){ m.x+=m.vx*dt; m.y+=m.vy*dt; m.f+=dt; if(m.y<-0.02){ m.y=1.02; m.x=Math.random(); } if(m.x<0) m.x+=1; if(m.x>1) m.x-=1;
     const l = luzMapa[Math.min(26,Math.max(0,(m.y*27)|0))*48 + Math.min(47,Math.max(0,(m.x*48)|0))];
@@ -514,9 +526,10 @@ function extras(t, dt, k){
   const pivX = innerWidth/2 + (cxT-innerWidth/2)*Math.min(1,ez*4), pivY = innerHeight/2 + (cyT-innerHeight/2)*Math.min(1,ez*4);
   const tx = pivX*(1-S) + (innerWidth/2-pivX)*ez - (mouseFino ? px*10*(1-ez) : 0), ty = pivY*(1-S) + (innerHeight/2-pivY)*ez - (mouseFino ? py*6*(1-ez) : 0);
   document.body.classList.toggle("modal", zoomMeta===1 || !wa.hidden);
-  escena.style.transform = `translate3d(${tx.toFixed(2)}px,${ty.toFixed(2)}px,0) scale(${S.toFixed(4)})`;
+  const tr = `translate3d(${tx.toFixed(1)}px,${ty.toFixed(1)}px,0) scale(${S.toFixed(4)})`;
+  if(tr !== ultimoTr){ escena.style.transform = tr; ultimoTr = tr; }
   const clipCorre = CLIPS[k] && CLIPS[k].pos!==CLIPS[k].meta;
-  if(quieto && !clipCorre && !luzMapa) leerLuz();
+  if(!TACTIL && quieto && !clipCorre && !luzMapa) leerLuz();
   if(!quieto || clipCorre) luzMapa = null;
   dibujarPolvo(dt, quieto && !clipCorre && (CLIPS[0] ? CLIPS[0].meta===1 : resuelta[0]));
   if(quieto && !tocoAlgo && !clipCorre && performance.now()-quietoDesde > 1200 && capitulos.hidden) ubicarPistas(k); else if(!quieto || clipCorre) ocultarPistas();
