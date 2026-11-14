@@ -86,13 +86,26 @@ jobs:
         env:
           MENSAJE_ORIGEN: ${{ github.event.head_commit.message }}
         run: |
+          autor=(-c user.name="Landing (GitHub Actions)" -c user.email="actions@users.noreply.github.com")
+          # Spacefast corta los push muy grandes (HTTP 502). Primero se suben en tandas
+          # los archivos nuevos de las carpetas pesadas (solo agregados, nada se borra,
+          # así la versión vigente sigue andando), y al final el resto con los borrados.
+          tandas=0
+          for patron in assets/hero/movil/tramos/t0 assets/hero/movil/tramos/t1 assets/hero/movil/tramos/t2 assets/hero/movil/tramos/t3 assets/hero/movil/tramos/t4 \
+                        assets/hero/tramos/t0 assets/hero/tramos/t1 assets/hero/tramos/t2 assets/hero/tramos/t3 assets/hero/tramos/t4 assets/hero/movil assets; do
+            git ls-files --others --exclude-standard | grep "^$patron" > /tmp/nuevos.txt || true
+            [ -s /tmp/nuevos.txt ] || continue
+            xargs -a /tmp/nuevos.txt git add --
+            git "${autor[@]}" commit -q -m "landing: archivos nuevos ($patron), tanda previa"
+            git push --quiet origin HEAD:main
+            tandas=$((tandas+1)); echo "Subida la tanda: $patron"
+          done
           for p in $LANDING_ARCHIVOS; do [ -e "$p" ] && git add -A -- "$p"; done
-          if git diff --cached --quiet; then
+          if git diff --cached --quiet && [ "$tandas" = 0 ]; then
             echo "La landing no cambió; no hay nada que publicar."; exit 0
           fi
           echo "Cambia:"; git diff --cached --stat
-          git -c user.name="Landing (GitHub Actions)" \
-              -c user.email="actions@users.noreply.github.com" \
+          git diff --cached --quiet || git "${autor[@]}" \
               commit -q -m "landing: sincronizar desde monticoagustin/teskel-landing@${GITHUB_SHA::7}" \
                         -m "${MENSAJE_ORIGEN:-Ejecución manual}"
           git push --quiet origin HEAD:main
