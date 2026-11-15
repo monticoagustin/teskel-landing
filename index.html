@@ -89,6 +89,7 @@ nav button[aria-current="step"]::before{display:block}
 .wa ul{list-style:none;margin:0;padding:0 6px;flex:1;overflow:auto}
 .wa li{display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:center;padding:12px 14px;border-radius:14px;opacity:0;transform:translateY(14px);transition:opacity .4s,transform .4s}
 .wa li.ver{opacity:1;transform:none}
+.wa li > div{min-width:0}
 .wa li .av{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font:600 17px/1 var(--texto);color:#0B141A}
 .wa li b{display:block;font:600 16px/1.2 var(--texto);margin-bottom:4px}
 .wa li span{display:block;font:400 15px/1.3 var(--texto);color:#AEBAC1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -308,6 +309,8 @@ function precargar(pos){
   for(const d of orden){ if(decodificando.size >= MAX_DECOD) break;
     let tt=c.tramo, i=c.i+d; if(i<0 && tt>0){ tt--; i+=POR_TRAMO; } if(i>POR_TRAMO && tt<N-1){ tt++; i-=POR_TRAMO; }
     if(i>=0 && i<=POR_TRAMO) decodificar({tramo:tt,i}, false); }
+  // al acercarse a una parada con animación, dejar listos sus primeros cuadros
+  if(c.i > POR_TRAMO*0.6){ const cl = CLIPS[c.tramo+1]; if(cl && cl.blobs && decodificando.size < MAX_DECOD) for(let j=0;j<6;j++) clipBitmap(cl, cl.meta ? cl.n-j : j); }
   // soltar lo que quedó lejos: cada cuadro decodificado ocupa varios MB de memoria
   const aqui = c.tramo*POR_TRAMO + c.i, lejos = TACTIL ? 16 : 22;
   for(const [k,bm] of bitmaps){ if(k[0]!=="t") continue; const u=k.indexOf("_");
